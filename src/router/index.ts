@@ -4,12 +4,18 @@ import { RouteRecordRaw } from 'vue-router';
 const routes: Array<RouteRecordRaw> = [
   {
     path: '',
-    redirect: '/Administrator'
+    redirect: '/Administrator/Hello'
   },
   {
-    path: '/folder/:id',
-    component: () => import ('../views/FolderPage.vue')
-  }
+    path: '/Administrator/Hello',
+    component: () => import ('../views/HelloPage.vue')
+  },
+  {
+    path: '/Administrator/User',
+    component: () => import ('../views/User.vue')
+  },
+
+
 ]
 
 const router = createRouter({

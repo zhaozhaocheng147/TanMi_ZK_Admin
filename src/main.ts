@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router';
 
 import { IonicVue } from '@ionic/vue';
-
+import axios from "axios";
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css';
 
@@ -29,4 +29,5 @@ const app = createApp(App)
   
 router.isReady().then(() => {
   app.mount('#app');
+  app.config.globalProperties.$axios = axios;  //配置axios的全局引用
 });
