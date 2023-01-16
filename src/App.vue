@@ -6,14 +6,32 @@
           <ion-list id="inbox-list">
 <!--            账号-->
             <ion-list-header>Inbox</ion-list-header>
-            <ion-note>hi@ionicframework.com</ion-note>
+            <ion-note>管理员端</ion-note>
 
 
             <ion-menu-toggle auto-hide="false" >
 
               <ion-item   lines="none" detail="false" class="hydrated">
 <!--                <ion-icon slot="start" :ios="p.iosIcon" :md="p.mdIcon"></ion-icon>-->
-                <ion-label>123123</ion-label>
+                <ion-label>用户</ion-label>
+              </ion-item>
+              <ion-item   lines="none" detail="false" class="hydrated">
+                <ion-label>任务</ion-label>
+              </ion-item>
+              <ion-item   lines="none" detail="false" class="hydrated">
+                <ion-label>碳积分</ion-label>
+              </ion-item>
+              <ion-item   lines="none" detail="false" class="hydrated">
+                <ion-label>低碳行为</ion-label>
+              </ion-item>
+              <ion-item   lines="none" detail="false" class="hydrated">
+                <ion-label>权益</ion-label>
+              </ion-item>
+              <ion-item   lines="none" detail="false" class="hydrated">
+                <ion-label>科普问答</ion-label>
+              </ion-item>
+              <ion-item   lines="none" detail="false" class="hydrated">
+                <ion-label>徽章</ion-label>
               </ion-item>
             </ion-menu-toggle>
           </ion-list>
