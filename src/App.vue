@@ -202,7 +202,7 @@ export default defineComponent({
                   {
                     text: 'OK',
                     handler: () => {
-                      location.reload();
+                      location.href="/Administrator/Hello";
                     }
                   }
                 ],
