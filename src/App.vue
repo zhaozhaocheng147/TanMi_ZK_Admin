@@ -4,16 +4,17 @@
         <ion-menu content-id="main-content" type="overlay" >
           <ion-content>
             <ion-list id="inbox-list">
-  <!--            账号-->
+  <!--            账号相关显示-->
               <div>
-                <ion-list-header v-if="noLog" id="OpenLogin">登录</ion-list-header>
-                <ion-list-header v-if="isLog">{{ adminId }}</ion-list-header>
-                <ion-item lines="full">
-                  <span style="color: grey; font-size: 14px" v-if="noLog">管理员</span>
-                  <span onmouseover="this.style.color='#a40e1b'" onmouseout="this.style.color='#808080'" style=" color: grey; font-size: 14px; " v-if="isLog" @click="logOut">退出登录</span>
+                <ion-list-header v-if="noLog" id="OpenLogin" onmouseover="this.style.color='#a40e1b'" onmouseout="this.style.color='#808080'">登录</ion-list-header>
+                <ion-list-header v-if="isLog" >{{ adminId }}</ion-list-header>
+                <ion-item lines="full" v-if="isLog">
+<!--                  <ion-label style="color: grey; font-size: 14px; " v-if="noLog" router-direction="root" router-link="/Administrator/adminRegister">注册账号</ion-label>-->
+                  <span onmouseover="this.style.color='#a40e1b'" onmouseout="this.style.color='#808080'" style=" color: grey; font-size: 14px; "  @click="logOut">退出登录</span>
                 </ion-item>
               </div>
 
+<!--              管理员登录模态框-->
               <ion-modal :breakpoints="[0, 0.5,  0.75]"
                          :initial-breakpoint="0.50"
                          handle-behavior="cycle"
@@ -39,42 +40,39 @@
                     </a>
                   </ion-item>
                   <ion-button expand="block" fill="outline" style="margin-top: 15px" @click="Login">登录</ion-button>
-                  <!--        重置密码-->
-                  <ion-item lines="none" id="OpenFindPwd">
-                    <p slot="end" style="font-size: 15px">忘记密码？<span>点我重置</span></p>
-                  </ion-item>
-                  <!--        找回密码模态框-->
-                  <UserFindPwd></UserFindPwd>
-                  <!--        进度条-->
                   <ion-progress-bar type="indeterminate" v-show="progressingTip"></ion-progress-bar>
                 </ion-content>
               </ion-modal>
 
 
               <ion-menu-toggle auto-hide="false" >
-                <ion-item button router-direction="root" router-link="/Administrator/User" lines="none" detail="false" class="hydrated">
+                <ion-item button router-direction="root" router-link="/Administrator/Admin" lines="none" detail="false" class="hydrated" :disabled="noLog">
+                  <!--                <ion-icon slot="start" :ios="p.iosIcon" :md="p.mdIcon"></ion-icon>-->
+                  <ion-label>管理员</ion-label>
+                </ion-item>
+                <ion-item button router-direction="root" router-link="/Administrator/User" lines="none" detail="false" class="hydrated" :disabled="noLog">
   <!--                <ion-icon slot="start" :ios="p.iosIcon" :md="p.mdIcon"></ion-icon>-->
                   <ion-label>用户</ion-label>
                 </ion-item>
-                <ion-item button lines="none" detail="false" class="hydrated">
+                <ion-item button lines="none" detail="false" class="hydrated" :disabled="noLog">
                   <ion-label>任务</ion-label>
                 </ion-item>
-                <ion-item button lines="none" detail="false" class="hydrated">
+                <ion-item button lines="none" detail="false" class="hydrated" :disabled="noLog">
                   <ion-label>碳积分</ion-label>
                 </ion-item>
-                <ion-item button lines="none" detail="false" class="hydrated">
+                <ion-item button lines="none" detail="false" class="hydrated" :disabled="noLog">
                   <ion-label>低碳行为</ion-label>
                 </ion-item>
-                <ion-item button lines="none" detail="false" class="hydrated">
+                <ion-item button lines="none" detail="false" class="hydrated" :disabled="noLog">
                   <ion-label>权益</ion-label>
                 </ion-item>
-                <ion-item button lines="none" detail="false" class="hydrated">
+                <ion-item button lines="none" detail="false" class="hydrated" :disabled="noLog">
                   <ion-label>科普问答</ion-label>
                 </ion-item>
-                <ion-item button lines="none" detail="false" class="hydrated">
+                <ion-item button lines="none" detail="false" class="hydrated" :disabled="noLog">
                   <ion-label>徽章</ion-label>
                 </ion-item>
-                <ion-item button router-direction="root" router-link="/Administrator/Hello" lines="none" detail="false" class="hydrated">
+                <ion-item button router-direction="root" router-link="/Administrator/Hello" lines="none" detail="false" class="hydrated" >
                   <ion-label>应用信息</ion-label>
                 </ion-item>
               </ion-menu-toggle>
@@ -168,6 +166,7 @@ export default defineComponent({
             console.log(err);
           })
     },
+
     async PresentSuccessAlert() {
       const alert = await alertController.create({
         header: '登录成功',

@@ -20,7 +20,8 @@ module.exports = {
     'vue/no-unused-vars': 'off',
     'vue/multi-word-component-names': "off",
     '@typescript-eslint/no-var-requires': 0,
-    "@typescript-eslint/no-this-alias": ["off"]
+    "@typescript-eslint/no-this-alias": ["off"],
+    'prefer-const': 'off'
   },
   overrides: [
     {
