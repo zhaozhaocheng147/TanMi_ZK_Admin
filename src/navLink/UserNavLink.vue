@@ -10,8 +10,7 @@
 
 
   <ion-content>
-    <div>用户管理内容</div>
-
+    <show></show>
   </ion-content>
 </template>
 
@@ -26,13 +25,19 @@ import {
   IonGrid, IonCol, IonRow,
   IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonCardSubtitle,
   alertController,
-  IonRefresher
+  IonRefresher,
+  IonSearchbar,
+  IonSelect,IonSelectOption,
 } from '@ionic/vue';
 import {defineComponent, ref} from 'vue';
+import Cookies from "js-cookie";
+import $ from "jquery";
+import show from "@/components/user/show";
 
 export default defineComponent({
   name: "UserNavLink",
   components: {
+    show,
     IonHeader, IonTitle, IonToolbar, IonContent, IonNavLink,
     IonButton, IonButtons, IonBackButton,IonMenuButton,
     IonInput, IonIcon,
@@ -42,7 +47,9 @@ export default defineComponent({
     IonGrid, IonCol, IonRow,
     IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonCardSubtitle,
     alertController,
-    IonRefresher
+    IonRefresher,
+    IonSearchbar,
+    IonSelect,IonSelectOption,
   },
   data() {
     return {
@@ -50,9 +57,11 @@ export default defineComponent({
     };
   },
   mounted() {
-    console.log("mounted测试语句")
+    console.log(123)
   },
-  methods: {},
+  methods: {
+
+  },
   setup() {
     return {}
   }
