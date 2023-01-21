@@ -290,7 +290,7 @@ export default defineComponent({
         url: 'https://tanmi-api.rexue.plus/users/'+userId+'/reset',
         type: 'patch',
         data: {
-          password:this.pwd,
+          password:_this.pwd,
         },
         beforeSend: function (request) {
           request.setRequestHeader("Authorization", Cookies.get('adminToken'));
