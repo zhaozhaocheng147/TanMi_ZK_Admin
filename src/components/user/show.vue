@@ -265,6 +265,7 @@ export default defineComponent({
           _this.modifyName = '';
           _this.modifyOrgId = '';
           _this.modifyEmail = '';
+          modalController.dismiss();
           _this.getUsers();
         },
         error: function (error) {
@@ -298,6 +299,7 @@ export default defineComponent({
           _this.resetSuccess();
           _this.progressingTip = false;
           _this.pwd = '';
+          modalController.dismiss();
         },
         error: function (error) {
           console.log(error)
