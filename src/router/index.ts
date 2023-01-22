@@ -18,6 +18,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/Administrator/Admin',
     component: () => import ('../views/Admin.vue')
   },
+  {
+    path: '/Administrator/Task',
+    component: () => import ('../views/Task.vue')
+  },
+
 
 
 ]

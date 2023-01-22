@@ -54,7 +54,7 @@
   <!--                <ion-icon slot="start" :ios="p.iosIcon" :md="p.mdIcon"></ion-icon>-->
                   <ion-label>用户</ion-label>
                 </ion-item>
-                <ion-item button lines="none" detail="false" class="hydrated" :disabled="noLog">
+                <ion-item button router-direction="root" router-link="/Administrator/Task" lines="none" detail="false" class="hydrated" :disabled="noLog">
                   <ion-label>任务</ion-label>
                 </ion-item>
                 <ion-item button lines="none" detail="false" class="hydrated" :disabled="noLog">
