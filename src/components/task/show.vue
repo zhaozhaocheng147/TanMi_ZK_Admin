@@ -112,19 +112,6 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-
-<!--    <ion-fab slot="fixed" vertical="bottom" horizontal="end" id="info">-->
-<!--      <ion-fab-button>-->
-<!--        <ion-icon :icon="informationOutline"></ion-icon>-->
-<!--      </ion-fab-button>-->
-<!--    </ion-fab>-->
-
-<!--    &lt;!&ndash;      帮助信息&ndash;&gt;-->
-<!--    <ion-popover trigger="info" trigger-action="click" side="top">-->
-<!--      <ion-content class="ion-padding">-->
-<!--        邮箱未验证？请点击"Email"信息栏进行验证-->
-<!--      </ion-content>-->
-<!--    </ion-popover>-->
   </ion-content>
 
 </template>
