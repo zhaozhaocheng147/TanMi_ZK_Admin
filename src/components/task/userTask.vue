@@ -87,7 +87,7 @@
               <ion-grid>
                 <ion-row>
                   <ion-col><ion-button expand="block" color="success"  :disabled="item.tState!=0" :id="item.tId">通过</ion-button></ion-col>
-                  <ion-col><ion-button expand="block" color="warning"  :disabled="item.tState!=0" :id="item.tName">驳回</ion-button></ion-col>
+                  <ion-col><ion-button expand="block" color="warning"  :disabled="item.tState!=0" :id="item.tATime">驳回</ion-button></ion-col>
                 </ion-row>
               </ion-grid>
 
@@ -115,7 +115,7 @@
               <ion-modal :breakpoints="[0, 0.3,  0.5]"
                          :initial-breakpoint="0.3"
                          handle-behavior="cycle"
-                         :trigger="item.tName" >
+                         :trigger="item.tATime" >
                 <ion-header>
                   <ion-toolbar>
                     <ion-title style=text-align:center>审核驳回</ion-title>
