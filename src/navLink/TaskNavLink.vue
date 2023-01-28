@@ -125,65 +125,6 @@ export default defineComponent({
     console.log("mounted测试语句")
   },
   methods: {
-    confirmCancel() {
-      this.presentConfirm();
-    },
-    async presentConfirm() {
-      const alert = await alertController.create({
-        header: '确认注销?注销后账号无法恢复',
-        buttons: [
-          {
-            text: '确认',
-            handler: () => {
-              this.cancelAdmin();
-            },
-          },
-          {
-            text: '返回',
-            handler: () => {
-              console.log(1)
-            },
-          },
-        ],
-      });
-      await alert.present();
-    },
-    cancelAdmin(){
-      let id = JSON.parse(Cookies.get('adminInfo')).adminId;
-      let _this = this;
-      $.ajax({
-        url: 'https://tanmi-api.rexue.plus/admins/'+id+'/del',
-        type: 'delete',
-        data: '',
-        beforeSend: function (request) {
-          request.setRequestHeader("Authorization", Cookies.get('token'));
-        },
-        success: function (data) {
-          _this.cancelSuccess();
-        },
-        error: function (error) {
-          console.log(error)
-        }
-      });
-    },
-    async cancelSuccess() {
-      const alert = await alertController.create({
-        header: '注销成功!',
-        message: '感谢您的贡献!',
-        buttons: [
-          {
-            text: 'OK',
-            handler: () => {
-              Cookies.remove('adminToken')
-              Cookies.remove('adminInfo')
-              window.opener = null;
-              window.open("about:blank", "_top").close()
-              // this.TestifyLogged();
-            }
-          }],
-      });
-      await alert.present();
-    },
   },
   setup() {
     return {informationOutline}

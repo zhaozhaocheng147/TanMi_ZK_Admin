@@ -76,6 +76,16 @@ export default defineComponent({
   },
   methods: {
     addTask(){
+      if(this.tName == ''){
+        this.noNameTip();
+        return;
+      }else if(this.tDesc == ''){
+        this.noDescTip();
+        return;
+      }else if(this.tPoint == ''){
+        this.noPointTip();
+        return;
+      }
       let _this = this;
       this.progressingTip = true;
       $.ajax({
@@ -99,6 +109,33 @@ export default defineComponent({
           _this.PresentFalseAlert();
         }
       })
+    },
+    async noNameTip() {
+      const toast = await toastController.create({
+        message: '请输入任务名称!',
+        duration: 1000,
+        position: 'bottom',
+        color: 'warning'
+      });
+      return toast.present();
+    },
+    async noDescTip() {
+      const toast = await toastController.create({
+        message: '请输入任务描述!',
+        duration: 1000,
+        position: 'bottom',
+        color: 'warning'
+      });
+      return toast.present();
+    },
+    async noPointTip() {
+      const toast = await toastController.create({
+        message: '请输入可获碳积分!',
+        duration: 1000,
+        position: 'bottom',
+        color: 'warning'
+      });
+      return toast.present();
     },
     async showTip() {
       const toast = await toastController.create({
