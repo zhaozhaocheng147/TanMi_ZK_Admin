@@ -55,10 +55,10 @@
 <!--            按钮-->
             <ion-grid>
               <ion-row>
-                <ion-col><ion-button style="font-size: 8px" :id="item.id">重置密码</ion-button></ion-col>
-                <ion-col><ion-button style="font-size: 8px" :id="item.name">修改信息</ion-button></ion-col>
-                <ion-col><ion-button style="font-size: 8px" color="warning" @click="banVerify(item.id)">封禁用户</ion-button></ion-col>
-                <ion-col><ion-button style="font-size: 8px" color="success" @click="unBanVerify(item.id)">解禁用户</ion-button></ion-col>
+                <ion-col><ion-button expand="block" style="font-size: 8px" :id="item.id">重置密码</ion-button></ion-col>
+                <ion-col><ion-button expand="block" style="font-size: 8px" :id="item.name">修改信息</ion-button></ion-col>
+                <ion-col><ion-button expand="block" style="font-size: 8px" color="warning" @click="banVerify(item.id)">封禁用户</ion-button></ion-col>
+                <ion-col><ion-button expand="block" style="font-size: 8px" color="success" @click="unBanVerify(item.id)">解禁用户</ion-button></ion-col>
               </ion-row>
             </ion-grid>
 
