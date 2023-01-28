@@ -18,6 +18,7 @@
                   style="width: 90px; height:42px; position: absolute; top: 8px; background-color:#ffffff; box-shadow:-1px 1px 1px 0px #969d98; border-radius: 20px 0 0 20px">
         <ion-select-option value="1">名称</ion-select-option>
         <ion-select-option value="2">描述</ion-select-option>
+        <ion-select-option value="3">Id</ion-select-option>
       </ion-select>
     </div>
 
@@ -320,6 +321,9 @@ export default defineComponent({
         name = this.searchInfo;
       }else if(this.type == 2){
         desc = this.searchInfo;
+      }else if(this.type == 3  && this.searchInfo !=''){
+        this.getTaskById(this.searchInfo);
+        return;
       }
 
       this.noInfo = false;
@@ -352,6 +356,49 @@ export default defineComponent({
             info.point = data[i].point;
             _this.tasks.push(info);
           }
+          _this.getting = false;
+        },
+        error: function (error) {
+          _this.getting = false;
+          console.log(error)
+          _this.noInfo = true;
+        }
+      });
+    },
+    getTaskById(tid){
+      if(this.searchInfo == ''){
+        this.getTasks();
+        return
+      }
+      this.noInfo = false;
+      this.tasks=[];
+      this.getting = true;
+      let _this = this;
+      $.ajax({
+        url: 'https://tanmi-api.rexue.plus/tasks/'+tid,
+        type: 'get',
+        data: {
+          name:'',
+          desc:'',
+        },
+        beforeSend: function (request) {
+          request.setRequestHeader("Authorization", Cookies.get('adminToken'));
+        },
+        success: function (data) {
+          let info = {
+            id:'',
+            name:'',
+            desc:'',
+            verified:'',
+            point:'',
+          }
+          info.id = data.id;
+          info.name = data.name;
+          info.desc = data.desc;
+          info.verified = data.state;
+          info.point = data.point;
+          _this.tasks.push(info);
+
           _this.getting = false;
         },
         error: function (error) {
