@@ -103,7 +103,7 @@
                   </ion-item>
                   <ion-item>
                     <ion-label position="floating">描述</ion-label>
-                    <ion-input :clear-input="true"  placeholder='请输入组织Id' v-model="modifyDesc"></ion-input>
+                    <ion-input :clear-input="true"  placeholder='请输入描述' v-model="modifyDesc"></ion-input>
                   </ion-item>
                   <ion-button expand="block" fill="outline" style="margin-top: 15px" @click="modify(item.id)">修改</ion-button>
                   <ion-progress-bar type="indeterminate" v-show="progressingTip"></ion-progress-bar>
