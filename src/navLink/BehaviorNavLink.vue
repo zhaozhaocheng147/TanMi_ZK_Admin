@@ -36,7 +36,7 @@
 
 
         <ion-col size="4" >
-          <ion-nav-link router-direction="forward" :component="userTask">
+          <ion-nav-link router-direction="forward" :component="userBehavior">
             <ion-card button id="openFindPwd">
               <ion-card-header>
                 <ion-card-title>查看用户低碳行为提交</ion-card-title>
@@ -72,7 +72,7 @@ import Cookies from "js-cookie";
 import $ from "jquery";
 import show from "@/components/behavior/show";
 import add from "@/components/behavior/add";
-import userTask from "@/components/task/userTask";
+import userBehavior from "@/components/behavior/userBehavior";
 import {informationOutline} from 'ionicons/icons'
 
 
@@ -95,7 +95,7 @@ export default defineComponent({
   data() {
     return {
       show:show,
-      userTask:userTask,
+      userBehavior:userBehavior,
     };
   },
   mounted() {
