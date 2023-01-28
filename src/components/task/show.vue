@@ -56,12 +56,14 @@
               </ion-grid>
 
               <!--            按钮-->
-                          <div>
-                            <ion-button style="font-size: 8px" :id="item.id">修改积分</ion-button>
-                            <ion-button style="font-size: 8px" :id="item.name">修改信息</ion-button>
-                            <ion-button style="font-size: 8px" color="warning" @click="banVerify(item.id)">禁用任务</ion-button>
-                            <ion-button style="font-size: 8px" color="success" @click="unBanVerify(item.id)">启用任务</ion-button>
-                          </div>
+              <ion-grid>
+                <ion-row>
+                  <ion-col><ion-button style="font-size: 8px" :id="item.id">修改积分</ion-button></ion-col>
+                  <ion-col><ion-button style="font-size: 8px" :id="item.name">修改信息</ion-button></ion-col>
+                  <ion-col><ion-button style="font-size: 8px" color="warning" @click="banVerify(item.id)">禁用任务</ion-button></ion-col>
+                  <ion-col><ion-button style="font-size: 8px" color="success" @click="unBanVerify(item.id)">启用任务</ion-button></ion-col>
+                </ion-row>
+              </ion-grid>
 
               <!--            修改积分模态框-->
               <ion-modal :breakpoints="[0, 0.5,  0.75]"
