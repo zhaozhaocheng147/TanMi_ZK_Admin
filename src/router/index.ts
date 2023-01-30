@@ -26,6 +26,10 @@ const routes: Array<RouteRecordRaw> = [
     path: '/Administrator/Behavior',
     component: () => import ('../views/Behavior.vue')
   },
+  {
+    path: '/Administrator/Right',
+    component: () => import ('../views/Right.vue')
+  },
 
 
 
