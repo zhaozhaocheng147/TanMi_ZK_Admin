@@ -35,7 +35,7 @@
 
 
         <ion-col size="4" >
-          <ion-nav-link router-direction="forward" :component="userTask">
+          <ion-nav-link router-direction="forward" :component="userRight">
             <ion-card button id="openFindPwd">
               <ion-card-header>
                 <ion-card-title>查看用户申请权益提交</ion-card-title>
@@ -70,7 +70,7 @@ import Cookies from "js-cookie";
 import $ from "jquery";
 import show from "@/components/right/show";
 import add from "@/components/right/add";
-import userTask from "@/components/task/userTask";
+import userRight from "@/components/right/userRight";
 import {informationOutline} from 'ionicons/icons'
 
 
@@ -93,7 +93,7 @@ export default defineComponent({
   data() {
     return {
       show:show,
-      userTask:userTask,
+      userRight:userRight,
     };
   },
   mounted() {
