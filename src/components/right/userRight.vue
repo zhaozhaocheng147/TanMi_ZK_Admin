@@ -27,7 +27,7 @@
 
     <!--  提示框-->
     <div style="width: 100px; margin: 0 auto;" v-if="getting">获取中...</div>
-    <div style="width: 120px; margin: 0 auto;" v-if="noInfo">没有相关任务</div>
+    <div style="width: 120px; margin: 0 auto;" v-if="noInfo">没有相关权益</div>
 
     <ion-grid>
       <ion-row>
