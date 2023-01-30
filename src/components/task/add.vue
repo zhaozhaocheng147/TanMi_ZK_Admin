@@ -15,11 +15,11 @@
       </ion-item>
       <ion-item>
         <ion-label position="floating">关联任务</ion-label>
-        <ion-input  placeholder='请输入密码' v-model="tDesc" required></ion-input>
+        <ion-input  placeholder='请输入关联任务名称' v-model="tDesc" required></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">可获积分</ion-label>
-        <ion-input  v-model="tPoint" required></ion-input>
+        <ion-input placeholder='请输入积分' v-model="tPoint" required></ion-input>
       </ion-item>
       <ion-button expand="block" fill="outline" style="margin-top: 15px" @click="addTask">新增</ion-button>
       <!--        进度条-->
@@ -103,6 +103,10 @@ export default defineComponent({
         success: function () {
           _this.progressingTip = false;
           _this.PresentSuccessAlert();
+          modalController.dismiss();
+          _this.tName = '';
+          _this.tDesc='';
+          _this.tPoint = '';
         },
         error: function () {
           _this.progressingTip = false;

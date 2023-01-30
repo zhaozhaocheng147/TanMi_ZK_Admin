@@ -15,7 +15,7 @@
       </ion-item>
       <ion-item>
         <ion-label position="floating">低碳行为描述</ion-label>
-        <ion-input  placeholder='请输入密码' v-model="tDesc" required></ion-input>
+        <ion-input  placeholder='请输入描述' v-model="tDesc" required></ion-input>
       </ion-item>
       <ion-button expand="block" fill="outline" style="margin-top: 15px" @click="addTask">新增</ion-button>
       <!--        进度条-->
@@ -95,6 +95,9 @@ export default defineComponent({
         success: function () {
           _this.progressingTip = false;
           _this.PresentSuccessAlert();
+          modalController.dismiss();
+          _this.tName = '';
+          _this.tDesc = '';
         },
         error: function () {
           _this.progressingTip = false;
