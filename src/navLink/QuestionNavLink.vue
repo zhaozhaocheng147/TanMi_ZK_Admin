@@ -57,7 +57,7 @@ import {defineComponent, ref} from 'vue';
 import Cookies from "js-cookie";
 import $ from "jquery";
 import show from "@/components/question/show";
-import add from "@/components/right/add";
+import add from "@/components/question/add";
 import {informationOutline} from 'ionicons/icons'
 
 
