@@ -547,5 +547,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
+.rolStyle{
+  color: black;
+}
 </style>
