@@ -275,7 +275,7 @@ export default defineComponent({
           contentType: false,
           processData: false,
           beforeSend: function (request) {
-            request.setRequestHeader("Authorization", Cookies.get('token'));
+            request.setRequestHeader("Authorization", Cookies.get('adminToken'));
           },
           success: function (data) {
             _this.modify(itemname,data.Hash);
