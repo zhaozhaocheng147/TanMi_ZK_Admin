@@ -296,6 +296,7 @@ export default defineComponent({
               _this.allTask.push(info);
             }
           }
+          _this.allTask.reverse();
           _this.getting = false;
         },
         error: function (error) {
@@ -348,6 +349,7 @@ export default defineComponent({
               _this.allTask.push(info);
             }
           }
+          _this.allTask.reverse();
           _this.getting = false;
         },
         error: function (error) {
@@ -400,6 +402,7 @@ export default defineComponent({
               _this.allTask.push(info);
             }
           }
+          _this.allTask.reverse();
           _this.getting = false;
         },
         error: function (error) {
@@ -502,6 +505,7 @@ export default defineComponent({
             info.tState = data[i].state;
             _this.allTask.push(info);
           }
+          _this.allTask.reverse();
           _this.getting = false;
         },
         error: function (error) {
