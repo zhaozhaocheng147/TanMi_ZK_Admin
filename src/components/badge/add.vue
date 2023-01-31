@@ -11,8 +11,12 @@
     </ion-header>
     <ion-content class="ion-padding">
       <ion-item>
+        <ion-label position="floating">徽章名称</ion-label>
+        <ion-input :clear-input="true"  placeholder='请输入徽章名称' v-model="bName"></ion-input>
+      </ion-item>
+      <ion-item>
         <ion-label position="floating">徽章描述</ion-label>
-        <ion-input :clear-input="true"  placeholder='请输入修改后的徽章描述' v-model="modifyDesc"></ion-input>
+        <ion-input :clear-input="true"  placeholder='请输入徽章描述' v-model="bDesc"></ion-input>
       </ion-item>
       <div style="width: 75px; margin: 30px auto 0px auto">上传图片</div>
       <ion-item lines="none">
@@ -20,7 +24,7 @@
              v-if="upPhotoTip">
         <img :src="myImageUrl" class="uploadPic" v-if="userPhoto">
       </ion-item>
-      <ion-button expand="block" fill="outline" style="margin-top: 15px" @click="upload(item.name)">修改</ion-button>
+      <ion-button expand="block" fill="outline" style="margin-top: 15px" @click="upload">添加</ion-button>
       <ion-progress-bar type="indeterminate" v-show="progressingTip"></ion-progress-bar>
     </ion-content>
   </ion-modal>
@@ -70,12 +74,95 @@ export default defineComponent({
       upPhotoTip:true,
       userPhoto:false,
       myImageUrl:'',
+      bName:'',
+      bDesc:'',
     }
   },
   mounted() {
     console.log("mounted测试语句")
   },
   methods: {
+    upload() {
+      if (this.bName == '' ||this.bDesc == '' || this.myImageUrl == '') {
+        this.noInfo();
+        return;
+      }
+
+      //创建一个新的图片
+      let tempImage = new Image();
+      tempImage.src = this.myImageUrl;
+
+      //转换成base64
+      let canvas = document.createElement("canvas");
+      canvas.width = tempImage.width;
+      canvas.height = tempImage.height;
+      let ctx = canvas.getContext("2d");
+      ctx.drawImage(tempImage, 0, 0, tempImage.width, tempImage.height);
+      let dataURL = canvas.toDataURL("image/png");
+
+      //二进制文件流
+      // const file = fetch(this.myImageUrl).then(r => r.blob()).then(blobFile => new File([blobFile], "11111", { type: blobFile.type }));
+      // console.log("file=="+file)
+      let arr = dataURL.split(',')
+      let mime = arr[0].match(/:(.*?);/)[1]
+      let suffix = mime.split('/')[1]
+      let bstr = atob(arr[1])
+      let n = bstr.length
+      let u8arr = new Uint8Array(n)
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n)
+      }
+      let file = new File([u8arr], "myFile." + suffix, {
+        type: mime
+      })
+
+      this.progressingTip = true;
+      const formData = new FormData();
+      formData.append('file', file);
+      let _this = this;
+      $.ajax({
+        url: 'https://tanmi-api.rexue.plus/files/upload',
+        type: 'post',
+        data: formData,
+        contentType: false,
+        processData: false,
+        beforeSend: function (request) {
+          request.setRequestHeader("Authorization", Cookies.get('adminToken'));
+        },
+        success: function (data) {
+          _this.add(data.Hash);
+        },
+        error: function (error) {
+          _this.progressingTip = false;
+          _this.photoError();
+          return;
+        }
+      });
+    },
+    add(hash){
+      let _this = this;
+      $.ajax({
+        url: 'https://tanmi-api.rexue.plus/insignias/add',
+        type: 'post',
+        data: {
+          name:_this.bName,
+          desc:_this.bDesc,
+          addr: hash,
+        },
+        beforeSend: function (request) {
+          request.setRequestHeader("Authorization", Cookies.get('adminToken'));
+        },
+        success: function (data) {
+          _this.progressingTip = false;
+          _this.dismiss();
+          _this.PresentSuccessAlert();
+        },
+        error: function (error) {
+          _this.progressingTip = false;
+          _this.PresentFalseAlert();
+        }
+      });
+    },
     dismiss() {
       modalController.dismiss();
       this.modifyDesc = '';
@@ -93,18 +180,9 @@ export default defineComponent({
       this.upPhotoTip = false;
       this.userPhoto = true;
     },
-    async noDescTip() {
+    async noInfo() {
       const toast = await toastController.create({
-        message: '请输入行为描述!',
-        duration: 1000,
-        position: 'bottom',
-        color: 'warning'
-      });
-      return toast.present();
-    },
-    async noNameTip() {
-      const toast = await toastController.create({
-        message: '请输入行为名称!',
+        message: '请填写全部信息并上传附件!',
         duration: 1000,
         position: 'bottom',
         color: 'warning'
@@ -138,6 +216,15 @@ export default defineComponent({
       });
       await alert.present();
     },
+    async photoError() {
+      const toast = await toastController.create({
+        message: '图片审查失败，请更换正确的图片!',
+        duration: 1000,
+        position: 'bottom',
+        color: 'warning'
+      });
+      return toast.present();
+    },
   },
   setup(){
     return{
@@ -148,5 +235,8 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
+.uploadPic {
+  width: 200px;
+  margin: 0 auto;
+}
 </style>
