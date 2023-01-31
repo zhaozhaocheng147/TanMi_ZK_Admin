@@ -56,9 +56,9 @@
                   <ion-col size="4">所需积分</ion-col>
                   <ion-col size="8" class="rolStyle">{{ item.rPoint }}</ion-col>
                 </ion-row>
-                <ion-row>
+                <ion-row v-if="item.state == 0">
                   <ion-col size="4">用户积分</ion-col>
-                  <ion-col size="8" class="rolStyle">{{ item.uPoint }}</ion-col>
+                  <ion-col size="8" class="rolStyle" >{{ item.uPoint }}</ion-col>
                 </ion-row>
                 <ion-row>
                   <ion-col size="4" >提交描述</ion-col>
@@ -90,16 +90,16 @@
 
               <ion-grid>
                 <ion-row>
-                  <ion-col><ion-button expand="block" color="success"  :disabled="item.state!=0" :id="item.tId">通过</ion-button></ion-col>
-                  <ion-col><ion-button expand="block" color="warning"  :disabled="item.state!=0" :id="item.tATime">驳回</ion-button></ion-col>
+                  <ion-col><ion-button expand="block" color="success"  :disabled="item.state!=0" :id="item.rlId">通过</ion-button></ion-col>
+                  <ion-col><ion-button expand="block" color="warning"  :disabled="item.state!=0" :id="item.aTime">驳回</ion-button></ion-col>
                 </ion-row>
               </ion-grid>
 
               <!--            通过模态框-->
-              <ion-modal :breakpoints="[0, 0.4,  0.5]"
-                         :initial-breakpoint="0.4"
+              <ion-modal :breakpoints="[0, 0.35,  0.5]"
+                         :initial-breakpoint="0.35"
                          handle-behavior="cycle"
-                         :trigger="item.tId" >
+                         :trigger="item.rlId" >
                 <ion-header>
                   <ion-toolbar>
                     <ion-title style=text-align:center>审核通过</ion-title>
@@ -110,11 +110,7 @@
                     <ion-label position="floating">审核描述</ion-label>
                     <ion-input :clear-input="true"  placeholder='请输入描述' v-model="desc"></ion-input>
                   </ion-item>
-                  <ion-item>
-                    <ion-label position="floating">给予积分</ion-label>
-                    <ion-input :clear-input="true"  placeholder='请输入积分' v-model="point"></ion-input>
-                  </ion-item>
-                  <ion-button expand="block" fill="outline" style="margin-top: 15px" @click="successTask(item.tId)">确认</ion-button>
+                  <ion-button expand="block" fill="outline" style="margin-top: 15px" @click="successTask(item.rlId)">确认</ion-button>
                   <ion-progress-bar type="indeterminate" v-show="progressingTip"></ion-progress-bar>
                 </ion-content>
               </ion-modal>
@@ -123,7 +119,7 @@
               <ion-modal :breakpoints="[0, 0.3,  0.5]"
                          :initial-breakpoint="0.3"
                          handle-behavior="cycle"
-                         :trigger="item.tATime" >
+                         :trigger="item.aTime" >
                 <ion-header>
                   <ion-toolbar>
                     <ion-title style=text-align:center>审核驳回</ion-title>
@@ -131,10 +127,10 @@
                 </ion-header>
                 <ion-content class="ion-padding">
                   <ion-item>
-                    <ion-label position="floating">审核描述</ion-label>
+                    <ion-label position="floating">驳回理由</ion-label>
                     <ion-input :clear-input="true"  placeholder='请输入描述' v-model="desc"></ion-input>
                   </ion-item>
-                  <ion-button expand="block" fill="outline" style="margin-top: 15px" @click="unSuccessTask(item.tId)">确认</ion-button>
+                  <ion-button expand="block" fill="outline" style="margin-top: 15px" @click="unSuccessTask(item.rlId)">确认</ion-button>
                   <ion-progress-bar type="indeterminate" v-show="progressingTip"></ion-progress-bar>
                 </ion-content>
               </ion-modal>
@@ -189,7 +185,6 @@ export default defineComponent({
       allTask:[],
       searchInfo:'',
       desc:'',
-      point:'',
       progressingTip:false,
     };
   },
@@ -205,7 +200,7 @@ export default defineComponent({
       let _this = this;
       this.progressingTip = true;
       $.ajax({
-        url: 'https://tanmi-api.rexue.plus/behaviors/log/'+tid+'/audit/reject',
+        url: 'https://tanmi-api.rexue.plus/rights/log/'+tid+'/audit/reject',
         type: 'patch',
         data: {
           desc:_this.desc,
@@ -217,20 +212,21 @@ export default defineComponent({
           _this.unSuccessTip();
           _this.progressingTip = false;
           for(let i =0; i<_this.allTask.length; i++){
-            if(_this.allTask[i].tId == tid){
-              _this.allTask[i].tState = 2;
+            if(_this.allTask[i].rlId == tid){
+              _this.allTask[i].state = 2;
               _this.allTask[i].rDesc = _this.desc;
             }
           }
           modalController.dismiss();
         },
         error: function (error) {
+          console.log(error)
           _this.progressingTip = false;
         }
       });
     },
     successTask(tid){
-      if(this.desc == '' || this.point == ''){
+      if(this.desc == ''){
         this.wrongTip();
         return;
       }
@@ -238,11 +234,10 @@ export default defineComponent({
       let _this = this;
       this.progressingTip = true;
       $.ajax({
-        url: 'https://tanmi-api.rexue.plus/behaviors/log/'+tid+'/audit/pass',
+        url: 'https://tanmi-api.rexue.plus/rights/log/'+tid+'/audit/pass',
         type: 'patch',
         data: {
           desc:_this.desc,
-          point:_this.point,
         },
         beforeSend: function (request) {
           request.setRequestHeader("Authorization", Cookies.get('adminToken'));
@@ -251,8 +246,8 @@ export default defineComponent({
           _this.successTip();
           _this.progressingTip = false;
           for(let i =0; i<_this.allTask.length; i++){
-            if(_this.allTask[i].tId == tid){
-              _this.allTask[i].tState = 1;
+            if(_this.allTask[i].rlId == tid){
+              _this.allTask[i].state = 1;
               _this.allTask[i].rDesc = _this.desc;
             }
           }
@@ -260,6 +255,13 @@ export default defineComponent({
 
         },
         error: function (error) {
+          if(error.responseJSON.msg == "用户积分不足以兑换权益"){
+            _this.noPointTip();
+          }
+          if(error.responseJSON.msg == "权益剩余库存不足"){
+            _this.noStockTip();
+          }
+          modalController.dismiss();
           _this.progressingTip = false;
         }
       });
@@ -308,6 +310,7 @@ export default defineComponent({
               _this.allTask.push(info);
             }
           }
+          _this.allTask.reverse();
           _this.getting = false;
         },
         error: function (error) {
@@ -361,6 +364,7 @@ export default defineComponent({
               _this.allTask.push(info);
             }
           }
+          _this.allTask.reverse();
           _this.getting = false;
         },
         error: function (error) {
@@ -414,6 +418,7 @@ export default defineComponent({
               _this.allTask.push(info);
             }
           }
+          _this.allTask.reverse();
           _this.getting = false;
         },
         error: function (error) {
@@ -518,6 +523,7 @@ export default defineComponent({
             info.rPoint= (info.aAmount)*data[i].right.point;
             _this.allTask.push(info);
           }
+          _this.allTask.reverse();
           _this.getting = false;
         },
         error: function (error) {
@@ -531,6 +537,24 @@ export default defineComponent({
       const toast = await toastController.create({
         message: '请填写全部字段!',
         duration: 1000,
+        position: 'bottom',
+        color: 'warning'
+      });
+      return toast.present();
+    },
+    async noPointTip() {
+      const toast = await toastController.create({
+        message: '用户积分不足以兑换权益!',
+        duration: 2000,
+        position: 'bottom',
+        color: 'warning'
+      });
+      return toast.present();
+    },
+    async noStockTip() {
+      const toast = await toastController.create({
+        message: '权益剩余库存不足，请驳回请求，或增加库存后再通过!',
+        duration: 2000,
         position: 'bottom',
         color: 'warning'
       });
