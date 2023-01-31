@@ -306,7 +306,7 @@ export default defineComponent({
         },
         success: function (data) {
           _this.progressingTip = false;
-          modalController.dismiss();
+          _this.dismiss();
           _this.getBadges();
           _this.modifySuccess();
         },

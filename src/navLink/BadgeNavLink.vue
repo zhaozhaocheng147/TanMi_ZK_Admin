@@ -24,7 +24,7 @@
         </ion-col>
 
         <ion-col size="4">
-          <ion-card button id="openAddBehavior">
+          <ion-card button id="openAdd">
             <ion-card-header>
               <ion-card-title>新增徽章</ion-card-title>
             </ion-card-header>
@@ -71,7 +71,7 @@ import {defineComponent, ref} from 'vue';
 import Cookies from "js-cookie";
 import $ from "jquery";
 import show from "@/components/badge/show";
-import add from "@/components/behavior/add";
+import add from "@/components/badge/add";
 import {informationOutline} from 'ionicons/icons'
 
 
