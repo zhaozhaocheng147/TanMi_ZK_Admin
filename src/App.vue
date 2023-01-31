@@ -69,7 +69,7 @@
                 <ion-item button lines="none" router-link="/Administrator/Question" detail="false" class="hydrated" :disabled="noLog">
                   <ion-label>科普问答</ion-label>
                 </ion-item>
-                <ion-item button lines="none" detail="false" class="hydrated" :disabled="noLog">
+                <ion-item button lines="none" router-link="/Administrator/Badge" detail="false" class="hydrated" :disabled="noLog">
                   <ion-label>徽章</ion-label>
                 </ion-item>
                 <ion-item button router-direction="root" router-link="/Administrator/Hello" lines="none" detail="false" class="hydrated" >
