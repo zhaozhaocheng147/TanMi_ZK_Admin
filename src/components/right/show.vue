@@ -157,7 +157,7 @@
 <script>
 import {
   IonHeader, IonTitle, IonToolbar, IonContent, IonNavLink,
-  IonButton, IonButtons, IonBackButton,
+  IonButton, IonButtons, IonBackButton,IonMenuButton,
   IonInput, IonIcon,
   IonList, IonItem, IonLabel,
   toastController,alertController,
@@ -180,7 +180,7 @@ export default defineComponent({
   name: "show",
   components: {
     IonHeader, IonTitle, IonToolbar, IonContent, IonNavLink,
-    IonButton, IonButtons, IonBackButton,
+    IonButton, IonButtons, IonBackButton,IonMenuButton,
     IonInput, IonIcon,
     IonList, IonItem, IonLabel,
     toastController,alertController,
