@@ -66,29 +66,46 @@
         :is-open="openLoading"
         sub-header="授予中，请稍候..."
     ></ion-alert>
+
+    <ion-fab slot="fixed" vertical="bottom" horizontal="start" id="info">
+      <ion-fab-button>
+        <ion-icon :icon="informationOutline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+    <!--      帮助信息-->
+    <ion-popover trigger="info" trigger-action="click" side="top">
+      <ion-content class="ion-padding">
+        <div>
+          单击表头可进行排序;
+          <br>
+          可批量管理;
+        </div>
+      </ion-content>
+    </ion-popover>
   </ion-content>
-
-
 </template>
 
 <script>
 import {
-  IonPage,IonHeader, IonTitle, IonToolbar, IonContent, IonNavLink,
-  IonButton, IonButtons, IonBackButton,IonMenuButton,
+  IonPage, IonHeader, IonTitle, IonToolbar, IonContent, IonNavLink,
+  IonButton, IonButtons, IonBackButton, IonMenuButton,
   IonInput, IonIcon,
   IonList, IonItem, IonLabel,
   toastController,
   IonProgressBar,
   IonGrid, IonCol, IonRow,
   IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonCardSubtitle,
-  alertController,IonAlert,
+  alertController, IonAlert,
   IonRefresher,
   IonSearchbar, IonSelect, IonSelectOption,
-  IonModal,modalController,
+  IonModal, modalController,
+  IonPopover, IonFab, IonFabButton
 } from '@ionic/vue';
 import {defineComponent, ref} from 'vue';
 import $ from "jquery";
 import Cookies from "js-cookie";
+import {informationOutline} from 'ionicons/icons'
 
 
 export default {
@@ -105,6 +122,7 @@ export default {
     IonRefresher,
     IonSearchbar, IonSelect, IonSelectOption,
     IonModal,modalController,
+    IonPopover,IonFab,IonFabButton,
   },
   mounted() {
     this.getUsers();
@@ -348,6 +366,9 @@ export default {
       return toast.present();
     },
   },
+  setup() {
+    return {informationOutline}
+  }
 }
 </script>
 
