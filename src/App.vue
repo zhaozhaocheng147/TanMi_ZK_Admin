@@ -6,7 +6,6 @@
             <ion-list id="inbox-list" style="background: #2a3f56;">
               <div style="text-align: center"><img src="../public/assets/pictures/myLogo.png"
                                                    style="width: 180px; margin: -20px auto 0 auto"></div>
-
   <!--            账号相关显示-->
               <div style="background: #2a3f56">
                 <ion-list-header class="myItem" v-if="noLog" id="OpenLogin" onmouseover="this.style.color='#808080'" onmouseout="this.style.color='#ffffff'">登录</ion-list-header>
