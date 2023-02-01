@@ -24,12 +24,27 @@ import '@ionic/vue/css/display.css';
 import './theme/variables.css';
 
 // Vuetify
+// import 'vuetify/styles' //控制颜色
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+import * as labs from 'vuetify/labs/components'
+import { aliases, mdi } from 'vuetify/iconsets/mdi'
+import '@mdi/font/css/materialdesignicons.css'
 
+const vuetify = createVuetify({
+  ssr: true,
+  components:{
+    ...labs,
+    ...components,
+  },
+  directives,
+})
 
 const app = createApp(App)
   .use(IonicVue)
-  .use(router);
-  
+  .use(router).use(vuetify);
+
 router.isReady().then(() => {
   app.mount('#app');
   app.config.globalProperties.$axios = axios;  //配置axios的全局引用
