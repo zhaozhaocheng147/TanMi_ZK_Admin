@@ -54,6 +54,9 @@
   <!--                <ion-icon slot="start" :ios="p.iosIcon" :md="p.mdIcon"></ion-icon>-->
                   <ion-label>用户</ion-label>
                 </ion-item>
+                <ion-item button router-direction="root" router-link="/Administrator/Badge"  lines="none" detail="false" class="hydrated" :disabled="noLog">
+                  <ion-label>徽章</ion-label>
+                </ion-item>
                 <ion-item button router-direction="root" router-link="/Administrator/Task" lines="none" detail="false" class="hydrated" :disabled="noLog">
                   <ion-label>任务</ion-label>
                 </ion-item>
@@ -68,9 +71,6 @@
                 </ion-item>
                 <ion-item button lines="none" router-direction="root" router-link="/Administrator/Question" detail="false" class="hydrated" :disabled="noLog">
                   <ion-label>科普问答</ion-label>
-                </ion-item>
-                <ion-item button lines="none" router-direction="root" router-link="/Administrator/Badge" detail="false" class="hydrated" :disabled="noLog">
-                  <ion-label>徽章</ion-label>
                 </ion-item>
                 <ion-item button router-direction="root" router-link="/Administrator/Hello" lines="none" detail="false" class="hydrated" >
                   <ion-label>应用信息</ion-label>

@@ -24,7 +24,7 @@
         </ion-col>
 
         <ion-col size="4">
-          <ion-card button id="openAdd">
+          <ion-card button id="openAddBadges">
             <ion-card-header>
               <ion-card-title>新增徽章</ion-card-title>
             </ion-card-header>
@@ -36,7 +36,7 @@
 
 
         <ion-col size="4" >
-          <ion-nav-link router-direction="forward" :component="userBehavior">
+          <ion-nav-link router-direction="forward" :component="userBadge">
             <ion-card button id="openFindPwd">
               <ion-card-header>
                 <ion-card-title>颁发徽章</ion-card-title>
@@ -72,7 +72,7 @@ import Cookies from "js-cookie";
 import $ from "jquery";
 import show from "@/components/badge/show";
 import add from "@/components/badge/add";
-import {informationOutline} from 'ionicons/icons'
+import userBadge from "@/components/badge/userBadge";
 
 
 export default defineComponent({
@@ -94,6 +94,7 @@ export default defineComponent({
   data() {
     return {
       show:show,
+      userBadge:userBadge
     };
   },
   mounted() {
@@ -103,7 +104,7 @@ export default defineComponent({
 
   },
   setup() {
-    return {informationOutline}
+    return {}
   }
 
 })
