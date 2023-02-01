@@ -2,7 +2,7 @@
 <!--  ion-page一定不能少，否则报错-->
   <ion-page>
     <ion-header :translucent="true">
-      <ion-toolbar>
+      <ion-toolbar style="--background:#f4f4f5;">
         <ion-buttons slot="start">
           <ion-menu-button color="primary"></ion-menu-button>
         </ion-buttons>
@@ -14,7 +14,7 @@
     <ion-content>
       <div style="margin: 0 auto; width: 260px; background-color:#989898; color: white; padding: 20px; border-bottom-left-radius: 20px; border-bottom-right-radius: 20px">
         应用名称：碳觅 <small>TanMi </small>管理员端 <br>
-        版本：V0.1 <small>2023-01-16 22:08:38</small> <br>
+        版本：V1.0 <small>2023-02-01 23:10:32</small> <br>
         前端：赵天成 <br>
         后端：吴昊 <br>
       </div>

@@ -1,16 +1,19 @@
 <template>
   <ion-app>
-      <ion-split-pane content-id="main-content" style="--side-width: 300px;">
-        <ion-menu content-id="main-content" type="overlay" >
-          <ion-content>
-            <ion-list id="inbox-list">
+      <ion-split-pane content-id="main-content" style="--side-width: 300px; ">
+        <ion-menu content-id="main-content" type="overlay"   >
+          <ion-content >
+            <ion-list id="inbox-list" style="background: #2a3f56;">
+              <div style="text-align: center"><img src="../public/assets/pictures/myLogo.png"
+                                                   style="width: 180px; margin: -20px auto 0 auto"></div>
+
   <!--            账号相关显示-->
-              <div>
-                <ion-list-header v-if="noLog" id="OpenLogin" onmouseover="this.style.color='#a40e1b'" onmouseout="this.style.color='#808080'">登录</ion-list-header>
-                <ion-list-header v-if="isLog" >{{ adminId }}</ion-list-header>
-                <ion-item lines="full" v-if="isLog">
+              <div style="background: #2a3f56">
+                <ion-list-header class="myItem" v-if="noLog" id="OpenLogin" onmouseover="this.style.color='#808080'" onmouseout="this.style.color='#ffffff'">登录</ion-list-header>
+                <ion-list-header class="myItem" v-if="isLog" >{{ adminId }}</ion-list-header>
+                <ion-item lines="full" v-if="isLog" class="myItem" style="border-bottom: 1px solid var(--ion-color-step-150, #666b72);">
 <!--                  <ion-label style="color: grey; font-size: 14px; " v-if="noLog" router-direction="root" router-link="/Administrator/adminRegister">注册账号</ion-label>-->
-                  <span onmouseover="this.style.color='#a40e1b'" onmouseout="this.style.color='#808080'" style=" color: grey; font-size: 14px; "  @click="logOut">退出登录</span>
+                  <span  onmouseover="this.style.color='#808080'" onmouseout="this.style.color='#ffffff'" style=" color: white; font-size: 14px; "  @click="logOut">退出登录</span>
                 </ion-item>
               </div>
 
@@ -45,34 +48,53 @@
               </ion-modal>
 
 
-              <ion-menu-toggle auto-hide="false" >
-                <ion-item button router-direction="root" router-link="/Administrator/Admin" lines="none" detail="false" class="hydrated" :disabled="noLog">
-                  <!--                <ion-icon slot="start" :ios="p.iosIcon" :md="p.mdIcon"></ion-icon>-->
+              <ion-menu-toggle auto-hide="false">
+                <ion-item button router-direction="root" router-link="/Administrator/Admin" lines="none" detail="false" class="hydrated myItem itemBorder" :disabled="noLog">
+                  <svg class="icon" aria-hidden="true" slot="start">
+                    <use xlink:href="#icon-AGuanLi"></use>
+                  </svg>
                   <ion-label>管理员</ion-label>
                 </ion-item>
-                <ion-item button router-direction="root" router-link="/Administrator/User" lines="none" detail="false" class="hydrated" :disabled="noLog">
-  <!--                <ion-icon slot="start" :ios="p.iosIcon" :md="p.mdIcon"></ion-icon>-->
+                <ion-item button router-direction="root" router-link="/Administrator/User" lines="none" detail="false" class="hydrated myItem itemBorder" :disabled="noLog">
+                  <svg class="icon" aria-hidden="true" slot="start">
+                    <use xlink:href="#icon-AUser"></use>
+                  </svg>
                   <ion-label>用户</ion-label>
                 </ion-item>
-                <ion-item button router-direction="root" router-link="/Administrator/Badge"  lines="none" detail="false" class="hydrated" :disabled="noLog">
+                <ion-item button router-direction="root" router-link="/Administrator/Badge"  lines="none" detail="false" class="hydrated myItem itemBorder" :disabled="noLog">
+                  <svg class="icon" aria-hidden="true" slot="start">
+                    <use xlink:href="#icon-AHuiZhang"></use>
+                  </svg>
                   <ion-label>徽章</ion-label>
                 </ion-item>
-                <ion-item button router-direction="root" router-link="/Administrator/Task" lines="none" detail="false" class="hydrated" :disabled="noLog">
+                <ion-item button router-direction="root" router-link="/Administrator/Task" lines="none" detail="false" class="hydrated myItem itemBorder" :disabled="noLog">
+                  <svg class="icon" aria-hidden="true" slot="start">
+                    <use xlink:href="#icon-ATask"></use>
+                  </svg>
                   <ion-label>任务</ion-label>
                 </ion-item>
-<!--                <ion-item button lines="none" detail="false" class="hydrated" :disabled="noLog">-->
-<!--                  <ion-label>碳积分</ion-label>-->
-<!--                </ion-item>-->
-                <ion-item button lines="none" router-direction="root" router-link="/Administrator/Behavior" detail="false" class="hydrated" :disabled="noLog">
+                <ion-item button lines="none" router-direction="root" router-link="/Administrator/Behavior" detail="false" class="hydrated myItem itemBorder" :disabled="noLog">
+                  <svg class="icon" aria-hidden="true" slot="start">
+                    <use xlink:href="#icon-AXingWei"></use>
+                  </svg>
                   <ion-label>低碳行为</ion-label>
                 </ion-item>
-                <ion-item button lines="none" router-direction="root" router-link="/Administrator/Right" detail="false" class="hydrated" :disabled="noLog">
+                <ion-item button lines="none" router-direction="root" router-link="/Administrator/Right" detail="false" class="hydrated myItem itemBorder" :disabled="noLog">
+                  <svg class="icon" aria-hidden="true" slot="start">
+                    <use xlink:href="#icon-AQuanYi"></use>
+                  </svg>
                   <ion-label>权益</ion-label>
                 </ion-item>
-                <ion-item button lines="none" router-direction="root" router-link="/Administrator/Question" detail="false" class="hydrated" :disabled="noLog">
+                <ion-item button lines="none" router-direction="root" router-link="/Administrator/Question" detail="false" class="hydrated myItem itemBorder" :disabled="noLog">
+                  <svg class="icon" aria-hidden="true" slot="start">
+                    <use xlink:href="#icon-AKePu"></use>
+                  </svg>
                   <ion-label>科普问答</ion-label>
                 </ion-item>
-                <ion-item button router-direction="root" router-link="/Administrator/Hello" lines="none" detail="false" class="hydrated" >
+                <ion-item button router-direction="root" router-link="/Administrator/Hello" lines="none" detail="false" class="hydrated myItem" >
+                  <svg class="icon" aria-hidden="true" slot="start">
+                    <use xlink:href="#icon-AXinXi"></use>
+                  </svg>
                   <ion-label>应用信息</ion-label>
                 </ion-item>
               </ion-menu-toggle>
@@ -248,8 +270,11 @@ export default defineComponent({
 </script>
 
 <style scoped>
+
+
 ion-menu ion-content {
-  --background: var(--ion-item-background, var(--ion-background-color, #fff));
+  --background: #2a3f56;
+
 }
 
 ion-menu.md ion-content {
@@ -273,7 +298,7 @@ ion-menu.md ion-note {
 }
 
 ion-menu.md ion-list#inbox-list {
-  border-bottom: 1px solid var(--ion-color-step-150, #d7d8da);
+  border-bottom: 1px solid var(--ion-color-step-150, #666b72);
 }
 
 ion-menu.md ion-list#inbox-list ion-list-header {
@@ -366,5 +391,19 @@ ion-note {
 
 ion-item.selected {
   --color: var(--ion-color-primary);
+}
+
+.myItem{
+  --background: #2a3f56;
+  --color: white;
+  --detail-icon-color: white;
+  --detail-icon-opacity: 1;
+  --detail-icon-font-size: 20px;
+  --background-hover: white;
+  --background-hover-opacity:15%;
+}
+
+.itemBorder{
+  border-bottom: 0.5px solid var(--ion-color-step-150, #475260);
 }
 </style>

@@ -1,0 +1,85 @@
+/*@font-face {*/
+/*  font-family: "iconfont"; !* Project id 3642354 *!*/
+/*  src: url('iconfont.woff2?t=1662880660143') format('woff2'),*/
+/*       url('iconfont.woff?t=1662880660143') format('woff'),*/
+/*       url('iconfont.ttf?t=1662880660143') format('truetype');*/
+/*}*/
+
+.icon {
+  width: 28px;
+  height: 28px;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+
+.icon-mingxi {
+  width: 20px;
+    height: 20px;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}
+
+.history {
+    width: 40px;
+    height: 40px;
+}
+
+.pointHistory {
+    width: 30px;
+    height: 30px;
+}
+
+.icon-yonghu {
+    width: 30px;
+    height: 30px;
+}
+
+.icon-Userthing {
+    width: 60px;
+    height: 60px;
+    vertical-align: -0.15em;
+  fill: currentColor;
+  margin: 0 auto;
+  display: block;
+  overflow: hidden;
+}
+
+.icon-Student {
+  width: 40px;
+  height: 40px;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+
+
+/*.iconfont {*/
+/*  font-family: "iconfont" !important;*/
+/*  font-size: 30px;*/
+/*  font-style: normal;*/
+/*  -webkit-font-smoothing: antialiased;*/
+/*  -moz-osx-font-smoothing: grayscale;*/
+/*}*/
+
+/*.icon-MyHome:before {*/
+/*  content: "\e60e";*/
+/*}*/
+
+/*.icon-SchoolCon2:before {*/
+/*  content: "\e61d";*/
+/*}*/
+
+/*.icon-SchoolCon1:before {*/
+/*  content: "\e604";*/
+/*}*/
+
+/*.icon-CarbonCon:before {*/
+/*  content: "\e605";*/
+/*}*/
+
+/*.icon-PointsCon:before {*/
+/*  content: "\e60a";*/
+/*}*/
+

@@ -1,10 +1,10 @@
 <template>
   <ion-header :translucent="true">
-    <ion-toolbar>
+    <ion-toolbar style="--background:#f4f4f5;">
       <ion-buttons slot="start">
         <ion-menu-button color="primary"></ion-menu-button>
       </ion-buttons>
-      <ion-title>管理员管理</ion-title>
+      <ion-title style="">管理员管理</ion-title>
     </ion-toolbar>
   </ion-header>
 

@@ -20,6 +20,10 @@ import '@ionic/vue/css/text-transformation.css';
 import '@ionic/vue/css/flex-utils.css';
 import '@ionic/vue/css/display.css';
 
+//引入图标
+import '../public/assets/font/iconfont.css'
+import '../public/assets/font/iconfont1'
+
 /* Theme variables */
 import './theme/variables.css';
 
