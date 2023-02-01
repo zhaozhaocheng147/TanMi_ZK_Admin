@@ -2,7 +2,7 @@
   <ion-modal :breakpoints="[0, 0.8,  0.9]"
              :initial-breakpoint="0.8"
              handle-behavior="cycle"
-             trigger="openAdd">
+             trigger="openAddQuestion">
     <ion-header>
       <ion-toolbar>
         <ion-title style=text-align:center>新增题目</ion-title>

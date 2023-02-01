@@ -2,7 +2,7 @@
   <ion-modal :breakpoints="[0, 0.65,  0.8]"
              :initial-breakpoint="0.65"
              handle-behavior="cycle"
-             trigger="openAdd">
+             trigger="openAddRight">
     <ion-header>
       <ion-toolbar>
         <ion-title style=text-align:center>新增权益</ion-title>

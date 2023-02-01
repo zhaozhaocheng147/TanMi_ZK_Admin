@@ -23,7 +23,7 @@
           </ion-nav-link>
         </ion-col>
         <ion-col size="4">
-          <ion-card button id="openAdd">
+          <ion-card button id="openAddTask">
             <ion-card-header>
               <ion-card-title>新增任务</ion-card-title>
             </ion-card-header>

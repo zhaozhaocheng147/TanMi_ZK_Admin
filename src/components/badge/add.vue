@@ -1,6 +1,6 @@
 <template>
   <ion-modal
-      trigger="openAdd" >
+      trigger="openAddBadges" >
     <ion-header>
       <ion-toolbar>
         <ion-title >修改徽章</ion-title>

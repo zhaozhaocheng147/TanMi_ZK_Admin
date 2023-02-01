@@ -2,7 +2,7 @@
   <ion-modal :breakpoints="[0, 0.5,  0.75]"
              :initial-breakpoint="0.50"
              handle-behavior="cycle"
-             trigger="openAdd">
+             trigger="openAddTask">
     <ion-header>
       <ion-toolbar>
         <ion-title style=text-align:center>新增任务</ion-title>
