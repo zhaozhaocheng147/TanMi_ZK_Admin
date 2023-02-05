@@ -45,6 +45,17 @@
             <find-pwd></find-pwd>
           </ion-nav-link>
         </ion-col>
+
+        <ion-col size="4" >
+          <ion-nav-link router-direction="forward" :component="UserTrade">
+            <ion-card button id="openFindPwd">
+              <ion-card-header>
+                <ion-card-title>查看用户闲置交易日志</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>总览用户之间的闲置交易</ion-card-content>
+            </ion-card>
+          </ion-nav-link>
+        </ion-col>
       </ion-row>
     </ion-grid>
 
@@ -72,6 +83,7 @@ import show from "@/components/right/show";
 import add from "@/components/right/add";
 import userRight from "@/components/right/userRight";
 import {informationOutline} from 'ionicons/icons'
+import UserTrade from "@/components/right/UserTrade";
 
 
 export default defineComponent({
@@ -92,6 +104,7 @@ export default defineComponent({
   },
   data() {
     return {
+      UserTrade:UserTrade,
       show:show,
       userRight:userRight,
     };
