@@ -48,7 +48,9 @@
                 <ion-row>
                   <ion-col size="3">附件</ion-col>
                   <div>
-                    <img :src="item.addr">
+                    <viewer :images="item">
+                      <img :key="item.addr" :src="item.addr" style="width: 100px">
+                    </viewer>
                   </div>
                 </ion-row>
               </ion-grid>
@@ -117,14 +119,16 @@ import Cookies from "js-cookie";
 import $ from "jquery";
 import {Camera, CameraResultType} from '@capacitor/camera';
 import {defineCustomElements} from '@ionic/pwa-elements/loader';
-
 import {informationOutline} from 'ionicons/icons'
+import 'viewerjs/dist/viewer.css'
+import { component as Viewer } from "v-viewer"
 
 
 
 export default defineComponent({
   name: "show",
   components: {
+    Viewer,
     IonHeader, IonTitle, IonToolbar, IonContent, IonNavLink,
     IonButton, IonButtons, IonBackButton,
     IonInput, IonIcon,

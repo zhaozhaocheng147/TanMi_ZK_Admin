@@ -83,7 +83,9 @@
                 <ion-row>
                   <ion-col size="3">附件:</ion-col>
                   <div>
-                    <img :src="item.tAttach">
+                    <viewer :images="item">
+                      <img :key="item.tAttach" :src="item.tAttach" style="width: 100px">
+                    </viewer>
                   </div>
                 </ion-row>
 
@@ -166,10 +168,13 @@ import {
 import {defineComponent, ref} from 'vue';
 import $ from "jquery";
 import Cookies from "js-cookie";
+import 'viewerjs/dist/viewer.css'
+import { component as Viewer } from "v-viewer"
 
 export default defineComponent({
   name: "userBehavior",
   components: {
+    Viewer,
     IonPage,IonHeader, IonTitle, IonToolbar, IonContent, IonNavLink,
     IonButton, IonButtons, IonBackButton,IonMenuButton,
     IonInput, IonIcon,

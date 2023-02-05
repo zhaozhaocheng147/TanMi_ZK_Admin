@@ -1,0 +1,16 @@
+<template>
+    <viewer :images="item">
+        <img :key="item.attach" :src="item.attach" style="width: 100px">
+    </viewer>
+</template>
+
+
+<srcipt>
+    import 'viewerjs/dist/viewer.css'
+    import { component as Viewer } from "v-viewer"
+
+    components: {
+        Viewer,
+    }
+
+</script>
