@@ -5,7 +5,7 @@
           <ion-content >
             <ion-list id="inbox-list" style="background: #2a3f56;">
               <div style="text-align: center"><img src="../public/assets/pictures/myLogo.png"
-                                                   style="width: 180px; margin: -20px auto 0 auto"></div>
+                                                   style="width: 130px; margin: -20px auto 0 auto"></div>
   <!--            账号相关显示-->
               <div style="background: #2a3f56">
                 <ion-list-header class="myItem" v-if="noLog" id="OpenLogin" onmouseover="this.style.color='#808080'" onmouseout="this.style.color='#ffffff'">登录</ion-list-header>
@@ -54,6 +54,12 @@
                   </svg>
                   <ion-label>管理员</ion-label>
                 </ion-item>
+                <ion-item button router-direction="root" router-link="/Administrator/Org" lines="none" detail="false" class="hydrated myItem itemBorder" :disabled="noLog">
+                  <svg class="icon" aria-hidden="true" slot="start">
+                    <use xlink:href="#icon-zuzhi1"></use>
+                  </svg>
+                  <ion-label>组织</ion-label>
+                </ion-item>
                 <ion-item button router-direction="root" router-link="/Administrator/User" lines="none" detail="false" class="hydrated myItem itemBorder" :disabled="noLog">
                   <svg class="icon" aria-hidden="true" slot="start">
                     <use xlink:href="#icon-AUser"></use>
@@ -65,6 +71,12 @@
                     <use xlink:href="#icon-AHuiZhang"></use>
                   </svg>
                   <ion-label>徽章</ion-label>
+                </ion-item>
+                <ion-item button router-direction="root" router-link="/Administrator/Chain"  lines="none" detail="false" class="hydrated myItem itemBorder" :disabled="noLog">
+                  <svg class="icon" aria-hidden="true" slot="start">
+                    <use xlink:href="#icon-qukuailian"></use>
+                  </svg>
+                  <ion-label>上链信息</ion-label>
                 </ion-item>
                 <ion-item button router-direction="root" router-link="/Administrator/Task" lines="none" detail="false" class="hydrated myItem itemBorder" :disabled="noLog">
                   <svg class="icon" aria-hidden="true" slot="start">

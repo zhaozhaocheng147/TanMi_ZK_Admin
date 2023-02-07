@@ -38,7 +38,14 @@ const routes: Array<RouteRecordRaw> = [
     path: '/Administrator/Badge',
     component: () => import ('../views/Badge.vue')
   },
-
+  {
+    path: '/Administrator/Chain',
+    component: () => import ('../views/Chain.vue')
+  },
+  {
+    path: '/Administrator/Org',
+    component: () => import ('../views/Org.vue')
+  },
 
 
 ]
