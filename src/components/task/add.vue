@@ -49,7 +49,7 @@ import $ from "jquery";
 
 
 export default defineComponent({
-  name: "PointsShowRights",
+  name: "add",
   components: {
     IonHeader, IonTitle, IonToolbar, IonContent, IonNavLink,
     IonButton, IonButtons, IonBackButton,

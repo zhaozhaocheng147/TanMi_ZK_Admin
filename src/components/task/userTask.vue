@@ -163,7 +163,7 @@ import 'viewerjs/dist/viewer.css'
 import { component as Viewer } from "v-viewer"
 
 export default defineComponent({
-  name: "register",
+  name: "useTask",
   components: {
     Viewer,
     IonPage,IonHeader, IonTitle, IonToolbar, IonContent, IonNavLink,

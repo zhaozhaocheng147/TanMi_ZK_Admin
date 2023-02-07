@@ -54,7 +54,7 @@ import $ from "jquery";
 
 
 export default defineComponent({
-  name: "PointsShowRights",
+  name: "findPwd",
   components: {
     IonHeader, IonTitle, IonToolbar, IonContent, IonNavLink,
     IonButton, IonButtons, IonBackButton,

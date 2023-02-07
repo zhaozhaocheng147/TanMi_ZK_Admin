@@ -74,7 +74,7 @@ import $ from "jquery";
 import Cookies from "js-cookie";
 
 export default defineComponent({
-  name: "register",
+  name: "info",
   components: {
     IonPage,IonHeader, IonTitle, IonToolbar, IonContent, IonNavLink,
     IonButton, IonButtons, IonBackButton,IonMenuButton,
