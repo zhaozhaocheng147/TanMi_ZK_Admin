@@ -74,7 +74,8 @@
                 </ion-row>
                 <ion-row v-if="item.rDesc != undefined">
                   <ion-col size="4">审核描述</ion-col>
-                  <ion-col size="8" class="rolStyle">{{ item.rDesc }}</ion-col>
+                  <ion-col size="8" class="rolStyle" v-if="item.rDesc!=''">{{ item.rDesc }}</ion-col>
+                  <ion-col size="8" class="rolStyle" v-if="item.rDesc==''">无</ion-col>
                 </ion-row>
                 <ion-row v-if="item.rPoint != 0">
                   <ion-col size="4">积分奖励</ion-col>
@@ -111,11 +112,11 @@
                 <ion-content class="ion-padding">
                   <ion-item>
                     <ion-label position="floating">审核描述</ion-label>
-                    <ion-input :clear-input="true"  placeholder='请输入描述' v-model="desc"></ion-input>
+                    <ion-input :clear-input="true"  placeholder='选填' v-model="desc"></ion-input>
                   </ion-item>
                   <ion-item>
                     <ion-label position="floating">给予积分</ion-label>
-                    <ion-input :clear-input="true"  placeholder='请输入积分' v-model="point"></ion-input>
+                    <ion-input :clear-input="true"  placeholder='必填' v-model="point"></ion-input>
                   </ion-item>
                   <ion-button expand="block" fill="outline" style="margin-top: 15px" @click="successTask(item.tId)">确认</ion-button>
                   <ion-progress-bar type="indeterminate" v-show="progressingTip"></ion-progress-bar>
@@ -236,7 +237,7 @@ export default defineComponent({
       });
     },
     successTask(tid){
-      if(this.desc == '' || this.point == ''){
+      if(this.point == ''){
         this.wrongTip();
         return;
       }
@@ -544,7 +545,7 @@ export default defineComponent({
     },
     async wrongTip() {
       const toast = await toastController.create({
-        message: '请填写全部字段!',
+        message: '给予积分必填!',
         duration: 1000,
         position: 'bottom',
         color: 'warning'

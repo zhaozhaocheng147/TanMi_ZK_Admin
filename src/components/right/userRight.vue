@@ -108,7 +108,7 @@
                 <ion-content class="ion-padding">
                   <ion-item>
                     <ion-label position="floating">审核描述</ion-label>
-                    <ion-input :clear-input="true"  placeholder='请输入描述' v-model="desc"></ion-input>
+                    <ion-input :clear-input="true"  placeholder='选填' v-model="desc"></ion-input>
                   </ion-item>
                   <ion-button expand="block" fill="outline" style="margin-top: 15px" @click="successTask(item.rlId)">确认</ion-button>
                   <ion-progress-bar type="indeterminate" v-show="progressingTip"></ion-progress-bar>
@@ -226,11 +226,6 @@ export default defineComponent({
       });
     },
     successTask(tid){
-      if(this.desc == ''){
-        this.wrongTip();
-        return;
-      }
-
       let _this = this;
       this.progressingTip = true;
       $.ajax({
