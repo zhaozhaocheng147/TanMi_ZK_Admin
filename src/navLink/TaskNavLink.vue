@@ -62,7 +62,7 @@
             新增任务模板：
           </div>
           <div style="font-size: 12px; color: grey">
-            任务名称：完成一次“随手拍”低碳行为
+            任务名称：提交一次“随手拍”低碳行为
           </div>
           <div style="font-size: 12px; color: grey">
             关联任务：随手拍 (关联任务应与低碳行为名称对应)

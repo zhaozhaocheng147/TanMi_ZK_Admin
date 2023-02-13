@@ -109,7 +109,7 @@
                     <ion-label position="floating">审核描述</ion-label>
                     <ion-input :clear-input="true"  placeholder='选填' v-model="desc"></ion-input>
                   </ion-item>
-                  <ion-button expand="block" fill="outline" style="margin-top: 15px" @click="successTask(item.tId)">确认</ion-button>
+                  <ion-button expand="block" fill="outline" style="margin-top: 15px" @click="successTask(item.tId,item.tBId,item.point)">确认</ion-button>
                   <ion-progress-bar type="indeterminate" v-show="progressingTip"></ion-progress-bar>
                 </ion-content>
               </ion-modal>
@@ -129,7 +129,7 @@
                     <ion-label position="floating">审核描述</ion-label>
                     <ion-input :clear-input="true"  placeholder='请输入描述' v-model="desc"></ion-input>
                   </ion-item>
-                  <ion-button expand="block" fill="outline" style="margin-top: 15px" @click="unSuccessTask(item.tId)">确认</ion-button>
+                  <ion-button expand="block" fill="outline" style="margin-top: 15px" @click="unSuccessTask(item.tId,item.tBId)">确认</ion-button>
                   <ion-progress-bar type="indeterminate" v-show="progressingTip"></ion-progress-bar>
                 </ion-content>
               </ion-modal>
@@ -194,7 +194,7 @@ export default defineComponent({
     this.getUserTasks();
   },
   methods: {
-    unSuccessTask(tid){
+    unSuccessTask(tid,tbid){
       if(this.desc == ''){
         this.wrongTip();
         return;
@@ -225,8 +225,19 @@ export default defineComponent({
           _this.progressingTip = false;
         }
       });
+
+      $.ajax({
+        url: 'https://tanmi-api.rexue.plus/behaviors/log/'+tbid+'/audit/reject',
+        type: 'patch',
+        data: {
+          desc:_this.desc,
+        },
+        beforeSend: function (request) {
+          request.setRequestHeader("Authorization", Cookies.get('adminToken'));
+        },
+      });
     },
-    successTask(tid){
+    successTask(tid,tbid,point){
       let _this = this;
       this.progressingTip = true;
       $.ajax({
@@ -254,6 +265,20 @@ export default defineComponent({
           _this.progressingTip = false;
         }
       });
+
+      $.ajax({
+        url: 'https://tanmi-api.rexue.plus/behaviors/log/'+tbid+'/audit/pass',
+        type: 'patch',
+        data: {
+          desc:_this.desc,
+          point:point,
+        },
+        beforeSend: function (request) {
+          request.setRequestHeader("Authorization", Cookies.get('adminToken'));
+        },
+      });
+
+
     },
     getFailTasks(){
       this.noInfo = false;
@@ -281,6 +306,7 @@ export default defineComponent({
                 tState:'',
                 rDesc:'',
                 rTime:'',
+                point:'',
               }
               info.uId = data[i].user.id;
               info.tId = data[i].id;
@@ -290,6 +316,7 @@ export default defineComponent({
               info.tAttach = data[i].attachment;
               info.rDesc=data[i].review_desc;
               info.rTime=data[i].review_time;
+              info.point = data[i].task.point;
               if (info.tAttach != undefined) {
                 let index = info.tAttach.indexOf("\"");
                 info.tAttach = "https://ipfs.rexue.plus/" + info.tAttach.substr(index + 1, 46);
@@ -334,6 +361,7 @@ export default defineComponent({
                 tState:'',
                 rDesc:'',
                 rTime:'',
+                point:'',
               }
               info.uId = data[i].user.id;
               info.tId = data[i].id;
@@ -343,6 +371,7 @@ export default defineComponent({
               info.tAttach = data[i].attachment;
               info.rDesc=data[i].review_desc;
               info.rTime=data[i].review_time;
+              info.point = data[i].task.point;
               if (info.tAttach != undefined) {
                 let index = info.tAttach.indexOf("\"");
                 info.tAttach = "https://ipfs.rexue.plus/" + info.tAttach.substr(index + 1, 46);
@@ -387,6 +416,7 @@ export default defineComponent({
                 tState:'',
                 rDesc:'',
                 rTime:'',
+                point:'',
               }
               info.uId = data[i].user.id;
               info.tId = data[i].id;
@@ -396,6 +426,7 @@ export default defineComponent({
               info.tAttach = data[i].attachment;
               info.rDesc=data[i].review_desc;
               info.rTime=data[i].review_time;
+              info.point = data[i].task.point;
               if (info.tAttach != undefined) {
                 let index = info.tAttach.indexOf("\"");
                 info.tAttach = "https://ipfs.rexue.plus/" + info.tAttach.substr(index + 1, 46);
@@ -442,6 +473,7 @@ export default defineComponent({
             tState:'',
             rDesc:'',
             rTime:'',
+            point:'',
           }
           info.uId = data.user.id;
           info.tId = data.id;
@@ -451,6 +483,7 @@ export default defineComponent({
           info.tAttach = data.attachment;
           info.rDesc=data.review_desc;
           info.rTime=data.review_time;
+          info.point = data.task.point;
           if (info.tAttach != undefined) {
             let index = info.tAttach.indexOf("\"");
             info.tAttach = "https://ipfs.rexue.plus/" + info.tAttach.substr(index + 1, 46);
@@ -491,6 +524,7 @@ export default defineComponent({
               tState:'',
               rDesc:'',
               rTime:'',
+              point:'',
             }
             info.uId = data[i].user.id;
             info.tId = data[i].id;
@@ -500,6 +534,7 @@ export default defineComponent({
             info.tAttach = data[i].attachment;
             info.rDesc=data[i].review_desc;
             info.rTime=data[i].review_time;
+            info.point = data[i].task.point;
             if (info.tAttach != undefined) {
               let index = info.tAttach.indexOf("\"");
               info.tAttach = "https://ipfs.rexue.plus/" + info.tAttach.substr(index + 1, 46);
