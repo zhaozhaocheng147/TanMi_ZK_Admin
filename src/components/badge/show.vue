@@ -90,7 +90,7 @@
                   <ion-progress-bar type="indeterminate" v-show="progressingTip"></ion-progress-bar>
                 </ion-content>
               </ion-modal>
-
+              <ion-progress-bar type="indeterminate" v-if="item.flag" style="margin:3px 0px 3px 0px;"></ion-progress-bar>
             </ion-card-content>
           </ion-card>
         </ion-col>
@@ -178,6 +178,11 @@ export default defineComponent({
       await alert.present();
     },
     unBan(name){
+      for(let i = 0; i<this.badges.length; i++){
+        if(this.badges[i].name == name){
+          this.badges[i].flag = true;
+        }
+      }
       let _this = this;
       $.ajax({
         url: 'https://tanmi-api.rexue.plus/insignias/'+name+'/enable',
@@ -189,7 +194,12 @@ export default defineComponent({
         },
         success: function (data) {
           _this.unBanSuccess();
-          _this.getBadges();
+          for(let i = 0; i<_this.badges.length; i++){
+            if(_this.badges[i].name == name){
+              _this.badges[i].flag = false;
+              _this.badges[i].state = 1;
+            }
+          }
         },
         error: function (error) {
           console.log(error)
@@ -214,6 +224,11 @@ export default defineComponent({
       await alert.present();
     },
     ban(uid){
+      for(let i = 0; i<this.badges.length; i++){
+        if(this.badges[i].name == uid){
+          this.badges[i].flag = true;
+        }
+      }
       let _this = this;
       $.ajax({
         url: 'https://tanmi-api.rexue.plus/insignias/'+uid+'/disable',
@@ -226,7 +241,12 @@ export default defineComponent({
         success: function (data) {
           console.log(data)
           _this.banSuccess();
-          _this.getBadges();
+          for(let i = 0; i<_this.badges.length; i++){
+            if(_this.badges[i].name == uid){
+              _this.badges[i].flag = false;
+              _this.badges[i].state = 0;
+            }
+          }
         },
         error: function (error) {
           console.log(error)
@@ -310,8 +330,18 @@ export default defineComponent({
         },
         success: function (data) {
           _this.progressingTip = false;
+
+          for(let i = 0; i<_this.badges.length; i++){
+            if(_this.badges[i].name == iname){
+              if(_this.modifyDesc!=''){
+                _this.badges[i].desc = _this.modifyDesc;
+              }
+              if(hash!=''){
+                _this.badges[i].addr ="https://ipfs.rexue.plus/" + hash;
+              }
+            }
+          }
           _this.dismiss();
-          _this.getBadges();
           _this.modifySuccess();
         },
         error: function (error) {
@@ -366,6 +396,7 @@ export default defineComponent({
               desc:'',
               state:'',
               addr:'',
+              flag:false,
             }
             info.name = data[i].name;
             info.desc = data[i].desc;
@@ -455,7 +486,7 @@ export default defineComponent({
 }
 
 .uploadPic {
-  width: 200px;
+  width: 120px;
   margin: 0 auto;
 }
 </style>
