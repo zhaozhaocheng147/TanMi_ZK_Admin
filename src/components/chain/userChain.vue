@@ -5,7 +5,7 @@
         <ion-menu-button color="primary"></ion-menu-button>
         <ion-back-button></ion-back-button>
       </ion-buttons>
-      <ion-title>总览闲置交易</ion-title>
+      <ion-title>用户上链明细</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content>
