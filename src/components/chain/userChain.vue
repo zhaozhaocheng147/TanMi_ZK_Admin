@@ -96,7 +96,7 @@ export default {
         { title: '事务类型', align: 'middle', key: 'type' },
         { title: '事务描述', align: 'middle', key: 'desc' },
         { title: '交易哈希', align: 'middle', key: 'chainId' },
-        { title: '上链事件', align: 'middle', key: 'time' },
+        { title: '上链时间', align: 'middle', key: 'time' },
       ],
 
     }
