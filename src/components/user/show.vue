@@ -56,7 +56,7 @@
             <ion-grid>
               <ion-row>
                 <ion-col><ion-button expand="block" style="font-size: 8px" :id="item.id">重置密码</ion-button></ion-col>
-                <ion-col><ion-button expand="block" style="font-size: 8px" :id="item.name">修改信息</ion-button></ion-col>
+                <ion-col><ion-button expand="block" style="font-size: 8px" :id="item.index">修改信息</ion-button></ion-col>
                 <ion-col><ion-button expand="block" style="font-size: 8px" color="warning" @click="banVerify(item.id)">封禁用户</ion-button></ion-col>
                 <ion-col><ion-button expand="block" style="font-size: 8px" color="success" @click="unBanVerify(item.id)">解禁用户</ion-button></ion-col>
               </ion-row>
@@ -86,7 +86,7 @@
             <ion-modal :breakpoints="[0, 0.5,  0.75]"
                        :initial-breakpoint="0.50"
                        handle-behavior="cycle"
-                       :trigger="item.name" >
+                       :trigger="item.index" >
               <ion-header>
                 <ion-toolbar>
                   <ion-title style=text-align:center>修改信息</ion-title>
@@ -109,7 +109,7 @@
                 <ion-progress-bar type="indeterminate" v-show="progressingTip"></ion-progress-bar>
               </ion-content>
             </ion-modal>
-
+            <ion-progress-bar type="indeterminate" v-if="item.flag" style="margin:3px 0px 3px 0px;"></ion-progress-bar>
           </ion-card-content>
         </ion-card>
       </ion-col>
@@ -186,6 +186,12 @@ export default defineComponent({
       await alert.present();
     },
     unBan(uid){
+      for(let i = 0; i<this.users.length; i++){
+        if(this.users[i].id == uid){
+          this.users[i].flag = true;
+        }
+      }
+
       let _this = this;
       $.ajax({
         url: 'https://tanmi-api.rexue.plus/users/'+uid+'/unban',
@@ -198,7 +204,12 @@ export default defineComponent({
         success: function (data) {
           console.log(data)
           _this.unBanSuccess();
-          _this.getUsers();
+          for(let i = 0; i<_this.users.length; i++){
+            if(_this.users[i].id == uid){
+              _this.users[i].flag = false;
+              _this.users[i].verified = 0;
+            }
+          }
         },
         error: function (error) {
           console.log(error)
@@ -223,6 +234,12 @@ export default defineComponent({
       await alert.present();
     },
     ban(uid){
+      for(let i = 0; i<this.users.length; i++){
+        if(this.users[i].id == uid){
+          this.users[i].flag = true;
+        }
+      }
+
       let _this = this;
       $.ajax({
         url: 'https://tanmi-api.rexue.plus/users/'+uid+'/ban',
@@ -235,7 +252,12 @@ export default defineComponent({
         success: function (data) {
           console.log(data)
           _this.banSuccess();
-          _this.getUsers();
+          for(let i = 0; i<_this.users.length; i++){
+            if(_this.users[i].id == uid){
+              _this.users[i].flag = false;
+              _this.users[i].verified = -1;
+            }
+          }
         },
         error: function (error) {
           console.log(error)
@@ -264,11 +286,23 @@ export default defineComponent({
         success: function (data) {
           _this.modifySuccess();
           _this.progressingTip = false;
+          modalController.dismiss();
+          for(let i = 0; i<_this.users.length; i++){
+            if(_this.users[i].id == userId){
+              if(_this.modifyName !== ''){
+                _this.users[i].name  = _this.modifyName;
+              }
+              if(_this.modifyEmail !== ''){
+                _this.users[i].email  = _this.modifyEmail;
+              }
+              if(_this.modifyOrgId !== ''){
+                _this.users[i].orgId  = _this.modifyOrgId;
+              }
+            }
+          }
           _this.modifyName = '';
           _this.modifyOrgId = '';
           _this.modifyEmail = '';
-          modalController.dismiss();
-          _this.getUsers();
         },
         error: function (error) {
           console.log(error)
@@ -345,13 +379,16 @@ export default defineComponent({
         success: function (data) {
           for (let i = 0; i < data.length; i++) {
             let info = {
+              index:'',
               id:'',
               name:'',
               email:'',
               verified:'',
               point:'',
               orgId:'',
+              flag:false,
             }
+            info.index = i;
             info.id = data[i].id;
             info.name = data[i].name;
             info.email = data[i].email;
