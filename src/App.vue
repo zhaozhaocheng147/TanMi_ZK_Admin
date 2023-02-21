@@ -54,12 +54,12 @@
                   </svg>
                   <ion-label>管理员</ion-label>
                 </ion-item>
-                <ion-item button router-direction="root" router-link="/Administrator/Org" lines="none" detail="false" class="hydrated myItem itemBorder" :disabled="noLog">
-                  <svg class="icon" aria-hidden="true" slot="start">
-                    <use xlink:href="#icon-zuzhi1"></use>
-                  </svg>
-                  <ion-label>组织</ion-label>
-                </ion-item>
+<!--                <ion-item button router-direction="root" router-link="/Administrator/Org" lines="none" detail="false" class="hydrated myItem itemBorder" :disabled="noLog">-->
+<!--                  <svg class="icon" aria-hidden="true" slot="start">-->
+<!--                    <use xlink:href="#icon-zuzhi1"></use>-->
+<!--                  </svg>-->
+<!--                  <ion-label>组织</ion-label>-->
+<!--                </ion-item>-->
                 <ion-item button router-direction="root" router-link="/Administrator/User" lines="none" detail="false" class="hydrated myItem itemBorder" :disabled="noLog">
                   <svg class="icon" aria-hidden="true" slot="start">
                     <use xlink:href="#icon-AUser"></use>
@@ -72,18 +72,18 @@
                   </svg>
                   <ion-label>徽章</ion-label>
                 </ion-item>
-                <ion-item button router-direction="root" router-link="/Administrator/Chain"  lines="none" detail="false" class="hydrated myItem itemBorder" :disabled="noLog">
-                  <svg class="icon" aria-hidden="true" slot="start">
-                    <use xlink:href="#icon-qukuailian"></use>
-                  </svg>
-                  <ion-label>上链信息</ion-label>
-                </ion-item>
-                <ion-item button router-direction="root" router-link="/Administrator/Task" lines="none" detail="false" class="hydrated myItem itemBorder" :disabled="noLog">
-                  <svg class="icon" aria-hidden="true" slot="start">
-                    <use xlink:href="#icon-ATask"></use>
-                  </svg>
-                  <ion-label>任务</ion-label>
-                </ion-item>
+<!--                <ion-item button router-direction="root" router-link="/Administrator/Chain"  lines="none" detail="false" class="hydrated myItem itemBorder" :disabled="noLog">-->
+<!--                  <svg class="icon" aria-hidden="true" slot="start">-->
+<!--                    <use xlink:href="#icon-qukuailian"></use>-->
+<!--                  </svg>-->
+<!--                  <ion-label>上链信息</ion-label>-->
+<!--                </ion-item>-->
+<!--                <ion-item button router-direction="root" router-link="/Administrator/Task" lines="none" detail="false" class="hydrated myItem itemBorder" :disabled="noLog">-->
+<!--                  <svg class="icon" aria-hidden="true" slot="start">-->
+<!--                    <use xlink:href="#icon-ATask"></use>-->
+<!--                  </svg>-->
+<!--                  <ion-label>任务</ion-label>-->
+<!--                </ion-item>-->
                 <ion-item button lines="none" router-direction="root" router-link="/Administrator/Behavior" detail="false" class="hydrated myItem itemBorder" :disabled="noLog">
                   <svg class="icon" aria-hidden="true" slot="start">
                     <use xlink:href="#icon-AXingWei"></use>

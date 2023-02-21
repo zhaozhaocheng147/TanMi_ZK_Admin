@@ -14,107 +14,35 @@
   </div>
 
 <!--  提示框-->
-  <div style="width: 100px; margin: 0 auto;" v-if="getting">获取中...</div>
-  <div style="width: 120px; margin: 0 auto;" v-if="noInfo">没有相关用户</div>
+<!--  <div style="width: 100px; margin: 0 auto;" v-if="getting">获取中...</div>-->
+<!--  <div style="width: 120px; margin: 0 auto;" v-if="noInfo">没有相关用户</div>-->
 
-  <ion-grid>
-    <ion-row>
-      <ion-col size="4" v-for="item in users" :key="item.id">
-        <ion-card>
-          <ion-card-content>
-<!--            用户信息展示-->
-            <ion-grid>
-              <ion-row>
-                <ion-col size="4">Id</ion-col>
-                <ion-col size="8" class="rolStyle">{{ item.id }}</ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col size="4">姓名</ion-col>
-                <ion-col size="8" class="rolStyle">{{ item.name }}</ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col size="4">Email</ion-col>
-                <ion-col size="8" class="rolStyle">{{ item.email }}</ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col size="4">用户状态</ion-col>
-                <ion-col size="8" class="rolStyle" v-if="item.verified == 0">未验证</ion-col>
-                <ion-col size="8" class="rolStyle" v-if="item.verified == 1" style="color: green">已验证</ion-col>
-                <ion-col size="8" class="rolStyle" v-if="item.verified == -1" style="color: darkred">已封禁</ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col size="4">碳积分</ion-col>
-                <ion-col size="8" class="rolStyle">{{ item.point }}</ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col size="4">组织Id</ion-col>
-                <ion-col size="8" class="rolStyle">{{ item.orgId }}</ion-col>
-              </ion-row>
-            </ion-grid>
-
-<!--            按钮-->
-            <ion-grid>
-              <ion-row>
-                <ion-col><ion-button expand="block" style="font-size: 8px" :id="item.id">重置密码</ion-button></ion-col>
-                <ion-col><ion-button expand="block" style="font-size: 8px" :id="item.index">修改信息</ion-button></ion-col>
-                <ion-col><ion-button expand="block" style="font-size: 8px" color="warning" @click="banVerify(item.id)">封禁用户</ion-button></ion-col>
-                <ion-col><ion-button expand="block" style="font-size: 8px" color="success" @click="unBanVerify(item.id)">解禁用户</ion-button></ion-col>
-              </ion-row>
-            </ion-grid>
-
-<!--            重置密码模态框-->
-            <ion-modal :breakpoints="[0, 0.5,  0.75]"
-                       :initial-breakpoint="0.50"
-                       handle-behavior="cycle"
-                       :trigger="item.id" >
-              <ion-header>
-                <ion-toolbar>
-                  <ion-title style=text-align:center>重置密码</ion-title>
-                </ion-toolbar>
-              </ion-header>
-              <ion-content class="ion-padding">
-                <ion-item>
-                  <ion-label position="floating">密码</ion-label>
-                  <ion-input :clear-input="true"  placeholder='请输入密码' v-model="pwd"></ion-input>
-                </ion-item>
-                <ion-button expand="block" fill="outline" style="margin-top: 15px" @click="reset(item.id)">重置</ion-button>
-                <ion-progress-bar type="indeterminate" v-show="progressingTip"></ion-progress-bar>
-              </ion-content>
-            </ion-modal>
-
-<!--            修改信息模态框-->
-            <ion-modal :breakpoints="[0, 0.5,  0.75]"
-                       :initial-breakpoint="0.50"
-                       handle-behavior="cycle"
-                       :trigger="item.index" >
-              <ion-header>
-                <ion-toolbar>
-                  <ion-title style=text-align:center>修改信息</ion-title>
-                </ion-toolbar>
-              </ion-header>
-              <ion-content class="ion-padding">
-                <ion-item>
-                  <ion-label position="floating">姓名</ion-label>
-                  <ion-input :clear-input="true"  placeholder='请输入姓名' v-model="modifyName"></ion-input>
-                </ion-item>
-                <ion-item>
-                  <ion-label position="floating">Email</ion-label>
-                  <ion-input :clear-input="true"  placeholder='请输入Email' v-model="modifyEmail"></ion-input>
-                </ion-item>
-                <ion-item>
-                  <ion-label position="floating">组织Id</ion-label>
-                  <ion-input :clear-input="true"  placeholder='请输入组织Id' v-model="modifyOrgId"></ion-input>
-                </ion-item>
-                <ion-button expand="block" fill="outline" style="margin-top: 15px" @click="modify(item.id)">修改</ion-button>
-                <ion-progress-bar type="indeterminate" v-show="progressingTip"></ion-progress-bar>
-              </ion-content>
-            </ion-modal>
-            <ion-progress-bar type="indeterminate" v-if="item.flag" style="margin:3px 0px 3px 0px;"></ion-progress-bar>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <v-app>
+    <v-container>
+      <div style="width: 120px; margin: 0 auto;" v-if="noInfo">没有相关用户</div>
+      <ion-progress-bar v-if="getting" type="indeterminate" color="medium"></ion-progress-bar>
+      <v-data-table
+          v-model:items-per-page="itemsPerPage"
+          :headers="headers"
+          :items="users"
+          item-value="id"
+          class="elevation-1"
+      >
+        <template v-slot:item.action="{ item }">
+          <ion-grid style="width:200px; padding: 10px 0 10px 0">
+            <ion-row>
+              <ion-col><ion-button fill="outline" size="small" @click="verifyReset(item.raw.id)">重置密码</ion-button></ion-col>
+              <ion-col><ion-button fill="outline" size="small" @click="verifyModify(item.raw.id)">修改信息</ion-button></ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col><ion-button fill="outline" size="small" color="danger" @click="verifyBan(item.raw.id)">封禁用户</ion-button></ion-col>
+              <ion-col><ion-button fill="outline" size="small" color="tertiary" @click="verifyUnBan(item.raw.id)">解禁用户</ion-button></ion-col>
+            </ion-row>
+          </ion-grid>
+        </template>
+      </v-data-table>
+    </v-container>
+  </v-app>
 </template>
 
 <script>
@@ -162,189 +90,432 @@ export default defineComponent({
       modifyName:'',
       modifyEmail:'',
       modifyOrgId:'',
+
+      itemsPerPage: 5,
+      headers: [
+        {
+          title: 'Id',
+          align: 'middle',
+          sortable: false,
+          key: 'id',
+        },
+        { title: '姓名', align: 'middle', key: 'name' },
+        { title: '邮箱', align: 'middle', key: 'email' },
+        { title: '状态', align: 'middle', key: 'verified' },
+        { title: '碳积分', align: 'middle', key: 'point' },
+        { title: '组织Id', align: 'middle', key: 'orgId' },
+        { title: ' ', align: 'middle', key:'action' },
+      ],
     }
   },
   mounted() {
     this.getUsers();
   },
   methods: {
-    async unBanVerify(uid){
+    async verifyUnBan(id){
+      let _this = this;
       const alert = await alertController.create({
-        header: '确认解禁?',
+        header: "确认解禁"+id+"?",
         buttons: [
           {
-            text: '确认',
+            text: '解禁',
             handler: () => {
-              this.unBan(uid);
-            },
+              _this.UnBan(id);
+              return false;
+            }
           },
           {
             text: '返回',
+            handler: () => {
+              return true;
+            }
+          }
+        ],
+      });
+      await alert.present();
+    },
+    UnBan(id){
+      alertController.dismiss();
+      this.getting = true;
+      let _this = this;
+      $.ajax({
+        url: 'https://tanmi-api.rexue.plus/users/'+id+'/unban',
+        type: 'patch',
+        data: {
+        },
+        beforeSend: function (request) {
+          request.setRequestHeader("Authorization", Cookies.get('adminToken'));
+        },
+        success: function (data) {
+          _this.successUnBan();
+          _this.getting = false;
+          for(let i = 0; i<_this.users.length; i++){
+            if(_this.users[i].id === id){
+              _this.users[i].verified = "未验证";
+            }
+          }
+        },
+        error: function (error) {
+          _this.getting = false;
+          console.log(error)
+        }
+      });
+    },
+    async verifyBan(id){
+      let _this = this;
+      const alert = await alertController.create({
+        header: "确认封禁"+id+"?",
+        buttons: [
+          {
+            text: '封禁',
+            handler: () => {
+              _this.ban(id);
+              return false;
+            }
+          },
+          {
+            text: '返回',
+            handler: () => {
+              return true;
+            }
+          }
+        ],
+      });
+      await alert.present();
+    },
+    ban(id){
+      alertController.dismiss();
+      this.getting = true;
+      let _this = this;
+      $.ajax({
+        url: 'https://tanmi-api.rexue.plus/users/'+id+'/ban',
+        type: 'patch',
+        data: {
+        },
+        beforeSend: function (request) {
+          request.setRequestHeader("Authorization", Cookies.get('adminToken'));
+        },
+        success: function (data) {
+          _this.successBan();
+          _this.getting = false;
+          for(let i = 0; i<_this.users.length; i++){
+            if(_this.users[i].id === id){
+              _this.users[i].verified = "已封禁";
+            }
+          }
+        },
+        error: function (error) {
+          _this.getting = false;
+          console.log(error)
+        }
+      });
+    },
+    async verifyModify(id){
+      let _this = this;
+      const alert = await alertController.create({
+        header: id,
+        buttons: [
+          {
+            text: '修改',
+            handler: (alertData) => {
+              _this.modify(alertData, id);
+              return false;
+            }
+          },
+          {
+            text: '关闭',
+            handler: () => {
+              return true;
+            }
+          }
+        ],
+        inputs: [
+          {
+            type: 'text',
+            placeholder: '请输入修改后的姓名...',
+          },
+          {
+            type: 'text',
+            placeholder: '请输入修改后的组织Id...',
+          },
+          {
+            type: 'text',
+            placeholder: '请输入修改后的邮箱...',
           },
         ],
       });
       await alert.present();
     },
-    unBan(uid){
-      for(let i = 0; i<this.users.length; i++){
-        if(this.users[i].id == uid){
-          this.users[i].flag = true;
-        }
-      }
+    modify(alertData, id){
+      let name = alertData[0];
+      let orgId = alertData[1];
+      let email = alertData[2];
+      console.log(alertData)
 
+      if(name == '' &&email == '' &&orgId == ''){
+        this.noInfoTip2();
+        return;
+      }
+      alertController.dismiss();
+      this.getting = true;
       let _this = this;
       $.ajax({
-        url: 'https://tanmi-api.rexue.plus/users/'+uid+'/unban',
+        url: 'https://tanmi-api.rexue.plus/users/'+id+'/modify',
         type: 'patch',
         data: {
+          name:name,
+          orgId:orgId,
+          email:email,
         },
         beforeSend: function (request) {
           request.setRequestHeader("Authorization", Cookies.get('adminToken'));
         },
         success: function (data) {
-          console.log(data)
-          _this.unBanSuccess();
-          for(let i = 0; i<_this.users.length; i++){
-            if(_this.users[i].id == uid){
-              _this.users[i].flag = false;
-              _this.users[i].verified = 0;
-            }
-          }
+          _this.successModify();
+          _this.getting = false;
+          _this.getUsers();
         },
         error: function (error) {
+          _this.getting = false;
           console.log(error)
         }
       });
     },
-    async banVerify(uid) {
+    async verifyReset(id) {
+      let _this = this;
       const alert = await alertController.create({
-        header: '确认封禁?',
+        header: id,
         buttons: [
           {
-            text: '确认',
-            handler: () => {
-              this.ban(uid);
-            },
+            text: '重置',
+            handler: (alertData) => {
+              _this.resetPwd(alertData, id);
+              return false;
+            }
           },
           {
-            text: '返回',
+            text: '关闭',
+            handler: () => {
+              return true;
+            }
+          }
+        ],
+        inputs: [
+          {
+            type: 'text',
+            placeholder: '请输入重置后的密码...',
           },
         ],
       });
       await alert.present();
     },
-    ban(uid){
-      for(let i = 0; i<this.users.length; i++){
-        if(this.users[i].id == uid){
-          this.users[i].flag = true;
-        }
-      }
-
-      let _this = this;
-      $.ajax({
-        url: 'https://tanmi-api.rexue.plus/users/'+uid+'/ban',
-        type: 'patch',
-        data: {
-        },
-        beforeSend: function (request) {
-          request.setRequestHeader("Authorization", Cookies.get('adminToken'));
-        },
-        success: function (data) {
-          console.log(data)
-          _this.banSuccess();
-          for(let i = 0; i<_this.users.length; i++){
-            if(_this.users[i].id == uid){
-              _this.users[i].flag = false;
-              _this.users[i].verified = -1;
-            }
-          }
-        },
-        error: function (error) {
-          console.log(error)
-        }
-      });
-    },
-    modify(userId){
-      if(this.modifyName == '' && this.modifyEmail == '' && this.modifyOrgId == ''){
-        this.noModifyInfo();
+    resetPwd(alertData,id){
+      let pwd = alertData[0];
+      if(pwd == ''){
+        this.noInfoTip2();
         return;
       }
 
-      this.progressingTip = true;
+      this.getting = true;
       let _this = this;
+      alertController.dismiss();
       $.ajax({
-        url: 'https://tanmi-api.rexue.plus/users/'+userId+'/modify',
+        url: 'https://tanmi-api.rexue.plus/users/'+id+'/modify/pwd',
         type: 'patch',
         data: {
-          name:_this.modifyName,
-          orgId:_this.modifyOrgId,
-          email:_this.modifyEmail,
+          password:pwd,
         },
         beforeSend: function (request) {
           request.setRequestHeader("Authorization", Cookies.get('adminToken'));
         },
         success: function (data) {
-          _this.modifySuccess();
-          _this.progressingTip = false;
-          modalController.dismiss();
-          for(let i = 0; i<_this.users.length; i++){
-            if(_this.users[i].id == userId){
-              if(_this.modifyName !== ''){
-                _this.users[i].name  = _this.modifyName;
-              }
-              if(_this.modifyEmail !== ''){
-                _this.users[i].email  = _this.modifyEmail;
-              }
-              if(_this.modifyOrgId !== ''){
-                _this.users[i].orgId  = _this.modifyOrgId;
-              }
-            }
-          }
-          _this.modifyName = '';
-          _this.modifyOrgId = '';
-          _this.modifyEmail = '';
+          _this.successModify();
+          _this.getting = false;
+          alertController.dismiss();
         },
         error: function (error) {
+          _this.getting = false;
           console.log(error)
-          _this.wrongTip();
-          _this.progressingTip = false;
-          _this.modifyName = '';
-          _this.modifyOrgId = '';
-          _this.modifyEmail = '';
         }
       });
     },
-    reset(userId){
-      if(this.pwd == ''){
-        this.noPwdInfo();
-        return;
-      }
-
-      this.progressingTip = true;
-      let _this = this;
-      $.ajax({
-        url: 'https://tanmi-api.rexue.plus/users/'+userId+'/reset',
-        type: 'patch',
-        data: {
-          password:_this.pwd,
-        },
-        beforeSend: function (request) {
-          request.setRequestHeader("Authorization", Cookies.get('adminToken'));
-        },
-        success: function (data) {
-          _this.resetSuccess();
-          _this.progressingTip = false;
-          _this.pwd = '';
-          modalController.dismiss();
-        },
-        error: function (error) {
-          console.log(error)
-          _this.wrongTip();
-          _this.progressingTip = false;
-          _this.pwd = '';
-        }
-      });
-    },
+    // async unBanVerify(uid){
+    //   const alert = await alertController.create({
+    //     header: '确认解禁?',
+    //     buttons: [
+    //       {
+    //         text: '确认',
+    //         handler: () => {
+    //           this.unBan(uid);
+    //         },
+    //       },
+    //       {
+    //         text: '返回',
+    //       },
+    //     ],
+    //   });
+    //   await alert.present();
+    // },
+    // unBan(uid){
+    //   for(let i = 0; i<this.users.length; i++){
+    //     if(this.users[i].id == uid){
+    //       this.users[i].flag = true;
+    //     }
+    //   }
+    //
+    //   let _this = this;
+    //   $.ajax({
+    //     url: 'https://tanmi-api.rexue.plus/users/'+uid+'/unban',
+    //     type: 'patch',
+    //     data: {
+    //     },
+    //     beforeSend: function (request) {
+    //       request.setRequestHeader("Authorization", Cookies.get('adminToken'));
+    //     },
+    //     success: function (data) {
+    //       console.log(data)
+    //       _this.unBanSuccess();
+    //       for(let i = 0; i<_this.users.length; i++){
+    //         if(_this.users[i].id == uid){
+    //           _this.users[i].flag = false;
+    //           _this.users[i].verified = 0;
+    //         }
+    //       }
+    //     },
+    //     error: function (error) {
+    //       console.log(error)
+    //     }
+    //   });
+    // },
+    // async banVerify(uid) {
+    //   const alert = await alertController.create({
+    //     header: '确认封禁?',
+    //     buttons: [
+    //       {
+    //         text: '确认',
+    //         handler: () => {
+    //           this.ban(uid);
+    //         },
+    //       },
+    //       {
+    //         text: '返回',
+    //       },
+    //     ],
+    //   });
+    //   await alert.present();
+    // },
+    // ban(uid){
+    //   for(let i = 0; i<this.users.length; i++){
+    //     if(this.users[i].id == uid){
+    //       this.users[i].flag = true;
+    //     }
+    //   }
+    //
+    //   let _this = this;
+    //   $.ajax({
+    //     url: 'https://tanmi-api.rexue.plus/users/'+uid+'/ban',
+    //     type: 'patch',
+    //     data: {
+    //     },
+    //     beforeSend: function (request) {
+    //       request.setRequestHeader("Authorization", Cookies.get('adminToken'));
+    //     },
+    //     success: function (data) {
+    //       console.log(data)
+    //       _this.banSuccess();
+    //       for(let i = 0; i<_this.users.length; i++){
+    //         if(_this.users[i].id == uid){
+    //           _this.users[i].flag = false;
+    //           _this.users[i].verified = -1;
+    //         }
+    //       }
+    //     },
+    //     error: function (error) {
+    //       console.log(error)
+    //     }
+    //   });
+    // },
+    // modify(userId){
+    //   if(this.modifyName == '' && this.modifyEmail == '' && this.modifyOrgId == ''){
+    //     this.noModifyInfo();
+    //     return;
+    //   }
+    //
+    //   this.progressingTip = true;
+    //   let _this = this;
+    //   $.ajax({
+    //     url: 'https://tanmi-api.rexue.plus/users/'+userId+'/modify',
+    //     type: 'patch',
+    //     data: {
+    //       name:_this.modifyName,
+    //       orgId:_this.modifyOrgId,
+    //       email:_this.modifyEmail,
+    //     },
+    //     beforeSend: function (request) {
+    //       request.setRequestHeader("Authorization", Cookies.get('adminToken'));
+    //     },
+    //     success: function (data) {
+    //       _this.modifySuccess();
+    //       _this.progressingTip = false;
+    //       modalController.dismiss();
+    //       for(let i = 0; i<_this.users.length; i++){
+    //         if(_this.users[i].id == userId){
+    //           if(_this.modifyName !== ''){
+    //             _this.users[i].name  = _this.modifyName;
+    //           }
+    //           if(_this.modifyEmail !== ''){
+    //             _this.users[i].email  = _this.modifyEmail;
+    //           }
+    //           if(_this.modifyOrgId !== ''){
+    //             _this.users[i].orgId  = _this.modifyOrgId;
+    //           }
+    //         }
+    //       }
+    //       _this.modifyName = '';
+    //       _this.modifyOrgId = '';
+    //       _this.modifyEmail = '';
+    //     },
+    //     error: function (error) {
+    //       console.log(error)
+    //       _this.wrongTip();
+    //       _this.progressingTip = false;
+    //       _this.modifyName = '';
+    //       _this.modifyOrgId = '';
+    //       _this.modifyEmail = '';
+    //     }
+    //   });
+    // },
+    // reset(userId){
+    //   if(this.pwd == ''){
+    //     this.noPwdInfo();
+    //     return;
+    //   }
+    //
+    //   this.progressingTip = true;
+    //   let _this = this;
+    //   $.ajax({
+    //     url: 'https://tanmi-api.rexue.plus/users/'+userId+'/reset',
+    //     type: 'patch',
+    //     data: {
+    //       password:_this.pwd,
+    //     },
+    //     beforeSend: function (request) {
+    //       request.setRequestHeader("Authorization", Cookies.get('adminToken'));
+    //     },
+    //     success: function (data) {
+    //       _this.resetSuccess();
+    //       _this.progressingTip = false;
+    //       _this.pwd = '';
+    //       modalController.dismiss();
+    //     },
+    //     error: function (error) {
+    //       console.log(error)
+    //       _this.wrongTip();
+    //       _this.progressingTip = false;
+    //       _this.pwd = '';
+    //     }
+    //   });
+    // },
     getUsers(){
       let id='';
       let name='';
@@ -393,6 +564,15 @@ export default defineComponent({
             info.name = data[i].name;
             info.email = data[i].email;
             info.verified = data[i].is_verified;
+            if(info.verified === 1){
+              info.verified = "已验证"
+            }
+            if(info.verified === 0){
+              info.verified = "未验证"
+            }
+            if(info.verified === -1){
+              info.verified = "已封禁"
+            }
 
             info.point = data[i].point;
             info.orgId = data[i].org.id;
@@ -407,34 +587,16 @@ export default defineComponent({
         }
       });
     },
-    async noPwdInfo() {
+    async noInfoTip() {
       const toast = await toastController.create({
-        message: '请输入密码!',
+        message: '没有相关信息!',
         duration: 1000,
         position: 'bottom',
         color: 'warning'
       });
       return toast.present();
     },
-    async noModifyInfo() {
-      const toast = await toastController.create({
-        message: '请输入要修改的信息!',
-        duration: 1000,
-        position: 'bottom',
-        color: 'warning'
-      });
-      return toast.present();
-    },
-    async resetSuccess() {
-      const toast = await toastController.create({
-        message: '重置成功!',
-        duration: 1000,
-        position: 'bottom',
-        color: 'success'
-      });
-      return toast.present();
-    },
-    async modifySuccess() {
+    async successModify() {
       const toast = await toastController.create({
         message: '修改成功!',
         duration: 1000,
@@ -443,16 +605,7 @@ export default defineComponent({
       });
       return toast.present();
     },
-    async unBanSuccess() {
-      const toast = await toastController.create({
-        message: '解禁成功!',
-        duration: 1000,
-        position: 'bottom',
-        color: 'success'
-      });
-      return toast.present();
-    },
-    async banSuccess() {
+    async successBan() {
       const toast = await toastController.create({
         message: '封禁成功!',
         duration: 1000,
@@ -461,15 +614,24 @@ export default defineComponent({
       });
       return toast.present();
     },
-    async wrongTip() {
+    async successUnBan() {
       const toast = await toastController.create({
-        message: '请检查信息是否正确!',
+        message: '解禁成功!',
+        duration: 1000,
+        position: 'bottom',
+        color: 'success'
+      });
+      return toast.present();
+    },
+    async noInfoTip2() {
+      const toast = await toastController.create({
+        message: '请输入要修改的信息!',
         duration: 1000,
         position: 'bottom',
         color: 'warning'
       });
       return toast.present();
-    }
+    },
   }
 })
 </script>
@@ -477,5 +639,11 @@ export default defineComponent({
 <style scoped>
 .rolStyle{
   color: black;
+}
+
+.my_class td{
+  font-size: small!important;
+  height: 0!important;
+  padding: 1px!important;
 }
 </style>
