@@ -2,7 +2,7 @@
 <!--  搜索-->
   <div style="position: relative">
     <ion-searchbar placeholder="模糊查询用户" v-model="searchInfo"
-                   style=" --border-radius: 0 20px 20px 0; padding-left: 80px" @ionChange="getUsers">
+                   style=" --border-radius: 0 20px 20px 0; padding-left: 80px" @ionChange="getUsers" debounce="1200">
     </ion-searchbar>
     <ion-select placeholder="类别" v-model="type"
                 style="width: 90px; height:42px; position: absolute; top: 8px; background-color:#ffffff; box-shadow:-1px 1px 1px 0px #969d98; border-radius: 20px 0 0 20px">
